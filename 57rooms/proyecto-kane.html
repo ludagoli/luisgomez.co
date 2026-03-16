@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Kane | 57 Rooms</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgDark: '#0a0a0a',
+            bgCard: '#141414',
+            accent: '#ff4c29',
+            accentHover: '#e03a1a',
+            textMain: '#ffffff',
+            textMuted: '#9ca3af',
+          },
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #0a0a0a; color: #ffffff; }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4c29 0%, #e03a1a 100%);
+      color: white;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 76, 41, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 76, 41, 0.5);
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(10px);
+      background-color: rgba(10, 10, 10, 0.85);
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .stat-box {
+      background-color: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+    }
+
+    .difficulty-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #333;
+    }
+    .difficulty-dot.active { background-color: #ff4c29; }
+  </style>
+</head>
+<body class="font-body antialiased selection:bg-accent selection:text-white">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 bg-bgDark/50 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-heading font-black tracking-tighter flex items-center gap-2">
+        <i data-lucide="chevron-left" class="w-6 h-6 text-accent"></i>
+        57<span class="text-accent">ROOMS</span>
+      </a>
+      <a href="#reservar" class="btn-primary px-6 py-2.5 rounded text-sm hidden sm:block">Reservar Ahora</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION (Room Specific) -->
+  <section class="relative h-[60vh] md:h-[70vh] flex items-end pb-12 md:pb-20">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-bgDark/80 to-transparent z-10"></div>
+      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Proyecto Kane Lab" class="w-full h-full object-cover">
+    </div>
+
+    <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-red-500/20 border border-red-500/50 text-red-500 font-bold text-xs uppercase tracking-wider mb-4">
+        <i data-lucide="triangle-alert" class="w-4 h-4"></i>
+        Sci-Fi Horror
+      </div>
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black uppercase tracking-tighter mb-2 shadow-black drop-shadow-lg">
+        PROYECTO <span class="text-accent">KANE</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-textMuted font-medium max-w-2xl font-heading italic">
+        "No es un fantasma. Es una consciencia depredadora."
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTENT SECTION -->
+  <section class="py-12 md:py-20 px-6 md:px-12 bg-bgDark">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+      
+      <!-- LEFT COLUMN: Story & Details -->
+      <div class="lg:col-span-2 space-y-10">
+        
+        <!-- The Briefing -->
+        <div>
+          <h2 class="text-3xl font-heading font-black uppercase tracking-tight mb-6 flex items-center gap-3">
+            <i data-lucide="file-text" class="w-8 h-8 text-accent"></i>
+            Misión / Briefing
+          </h2>
+          <div class="prose prose-invert max-w-none text-textMuted text-lg leading-relaxed space-y-4">
+            <p>
+              <strong class="text-white">Vertex Corporation</strong> ha perdido todo contacto con el <strong class="text-white">Sitio-7</strong>, un laboratorio subterráneo de máxima seguridad. El director de la instalación, el Dr. Thomas Kane, lleva desaparecido 11 días.
+            </p>
+            <p>
+              El objetivo oficial del laboratorio era el desarrollo de computación cuántica. Extraoficialmente, Kane logró extraer y contener una forma de consciencia pura de un plano dimensional paralelo. La llamó <strong class="text-accent">"La Presencia"</strong>.
+            </p>
+            <p>
+              La Presencia se alimenta de energía bioeléctrica. Cada humano cerca de ella la fortalece. Y lo peor: puede manipular los sistemas electrónicos de la instalación. Las luces, las puertas, los audios... la instalación entera es su arma.
+            </p>
+            <p>
+              Su equipo de extracción tiene <strong class="text-white border-b border-accent">60 minutos</strong> para entrar al Sitio-7, llegar al Núcleo de Contención (Nivel 3), restablecer los protocolos de seguridad y asegurar la instalación antes de que la grieta dimensional se vuelva inestable.
+            </p>
+          </div>
+        </div>
+
+        <!-- What to Expect -->
+        <div>
+          <h2 class="text-2xl font-heading font-black uppercase tracking-tight mb-6">¿Qué esperar de esta sala?</h2>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <li class="flex items-start gap-3 bg-bgCard p-4 rounded border border-gray-800">
+              <i data-lucide="cpu" class="w-6 h-6 text-accent shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="block text-white mb-1">Cero Candados Clásicos</strong>
+                <span class="text-sm text-textMuted">Experiencia Generación 3. Todo funciona mediante electrónica, sensores y acciones físicas.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 bg-bgCard p-4 rounded border border-gray-800">
+              <i data-lucide="radio" class="w-6 h-6 text-accent shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="block text-white mb-1">Efectos Electromagnéticos</strong>
+                <span class="text-sm text-textMuted">Las luces y sonidos reaccionan a su progreso. La inmersión es total.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 bg-bgCard p-4 rounded border border-gray-800">
+              <i data-lucide="brain-circuit" class="w-6 h-6 text-accent shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="block text-white mb-1">Terror Psicológico</strong>
+                <span class="text-sm text-textMuted">Tensión constante. La entidad no tiene cuerpo, pero sabrás que está ahí.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 bg-bgCard p-4 rounded border border-gray-800">
+              <i data-lucide="users" class="w-6 h-6 text-accent shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="block text-white mb-1">Cooperación Obligatoria</strong>
+                <span class="text-sm text-textMuted">Puzzles diseñados para requerir comunicación simultánea entre varios miembros.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Sticky Booking Panel -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-28 stat-box p-6 md:p-8">
+          
+          <h3 class="text-2xl font-heading font-black uppercase mb-6 text-center border-b border-gray-800 pb-4">Detalles Técnicos</h3>
+          
+          <div class="space-y-6 mb-8">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-3 text-textMuted">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                <span>Capacidad</span>
+              </div>
+              <span class="font-bold text-lg">2 a 5 Jugadores</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-3 text-textMuted">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+                <span>Tiempo Límite</span>
+              </div>
+              <span class="font-bold text-lg">60 Minutos</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-3 text-textMuted">
+                <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                <span>Edad Mínima</span>
+              </div>
+              <span class="font-bold text-lg">+16 Años</span>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-3 text-textMuted">
+                  <i data-lucide="flame" class="w-5 h-5"></i>
+                  <span>Dificultad</span>
+                </div>
+                <span class="font-bold text-accent uppercase text-sm tracking-wider">Alta (4/5)</span>
+              </div>
+              <div class="flex gap-2">
+                <div class="h-2 flex-1 rounded-full bg-accent"></div>
+                <div class="h-2 flex-1 rounded-full bg-accent"></div>
+                <div class="h-2 flex-1 rounded-full bg-accent"></div>
+                <div class="h-2 flex-1 rounded-full bg-accent"></div>
+                <div class="h-2 flex-1 rounded-full bg-gray-800"></div>
+              </div>
+            </div>
+          </div>
+
+          <a href="#reservar" class="btn-primary w-full block text-center py-4 rounded-lg text-xl" id="reservar">
+            Ver Disponibilidad
+          </a>
+          <p class="text-center text-xs text-textMuted mt-4">Reserva sin pago adelantado obligatorio.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
