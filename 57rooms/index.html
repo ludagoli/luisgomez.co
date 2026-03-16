@@ -3,364 +3,301 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>57 Rooms — Escape Room Experience</title>
+  <title>57 Rooms | Experiencias de Escape Room</title>
 
-  <!-- Google Fonts: Bebas Neue (titulares) + Montserrat (cuerpo) -->
+  <!-- Google Fonts: Montserrat (Headers) & Inter (Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS vía CDN -->
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            negro: '#0a0a0a',
-            rojo: '#e50914',
-            'rojo-hover': '#ff1a25',
-            gris: {
-              900: '#111111',
-              800: '#1a1a1a',
-              700: '#2a2a2a',
-              400: '#999999',
-              300: '#bbbbbb',
-            }
+            bgDark: '#0a0a0a',
+            bgCard: '#141414',
+            accent: '#ff4c29', // Naranja/Rojo vibrante estilo 60out/Enigma
+            accentHover: '#e03a1a',
+            textMain: '#ffffff',
+            textMuted: '#9ca3af',
           },
           fontFamily: {
-            bebas: ['Bebas Neue', 'sans-serif'],
-            mont: ['Montserrat', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
           }
         }
       }
     }
   </script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
   <style>
-    /* Scrollbar personalizado */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0a; }
-    ::-webkit-scrollbar-thumb { background: #e50914; border-radius: 3px; }
-
-    /* Animación de entrada del hero */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    body { background-color: #0a0a0a; color: #ffffff; }
+    
+    /* Botón principal estilo "Enigma / 60out" */
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4c29 0%, #e03a1a 100%);
+      color: white;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 76, 41, 0.3);
     }
-    .fade-up { animation: fadeUp 1s ease-out forwards; }
-    .fade-up-delay-1 { animation-delay: 0.3s; opacity: 0; }
-    .fade-up-delay-2 { animation-delay: 0.6s; opacity: 0; }
-    .fade-up-delay-3 { animation-delay: 0.9s; opacity: 0; }
-
-    /* Efecto de grano cinematográfico */
-    .grain::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 100;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 76, 41, 0.5);
     }
 
-    /* Línea roja animada bajo el logo */
-    .logo-line {
-      width: 0;
-      transition: width 1s ease-out;
+    .btn-outline {
+      border: 2px solid #ffffff;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
     }
-    .logo-line.active {
-      width: 60px;
+    .btn-outline:hover {
+      background: #ffffff;
+      color: #0a0a0a;
     }
 
-    /* Póster hover overlay */
-    .poster-overlay {
-      opacity: 0;
-      transition: opacity 0.4s ease;
+    /* Estilos de las tarjetas de sala (Estilo 60out) */
+    .room-card {
+      background-color: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
-    .poster-card:hover .poster-overlay {
-      opacity: 1;
+    .room-card:hover {
+      transform: translateY(-5px);
+      border-color: #ff4c29;
     }
-    .poster-card:hover .poster-img {
-      transform: scale(1.08);
+    
+    .room-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+    }
+    
+    .room-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .room-card:hover .room-image {
+      transform: scale(1.05);
+    }
+
+    .difficulty-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #333;
+    }
+    .difficulty-dot.active { background-color: #ff4c29; }
+    .difficulty-dot.active-high { background-color: #eab308; }
+
+    /* Nav Blur */
+    .nav-blur {
+      backdrop-filter: blur(10px);
+      background-color: rgba(10, 10, 10, 0.85);
+      border-bottom: 1px solid #2a2a2a;
     }
   </style>
 </head>
+<body class="font-body antialiased">
 
-<body class="bg-negro text-white font-mont grain">
-
-  <!-- ============================================ -->
-  <!-- NAVBAR — Fija, transparente, oscurece al scroll -->
-  <!-- ============================================ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-2 group">
-        <span class="font-bebas text-3xl tracking-wider">
-          <span class="text-rojo">57</span>ROOMS
-        </span>
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-2xl font-heading font-black tracking-tighter">
+        57<span class="text-accent">ROOMS</span>
       </a>
-
-      <!-- Links desktop -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#cartelera" class="text-sm font-medium text-gris-300 hover:text-white transition-colors tracking-wider uppercase">Cartelera</a>
-        <a href="#experiencia" class="text-sm font-medium text-gris-300 hover:text-white transition-colors tracking-wider uppercase">Experiencia</a>
-        <a href="#contacto" class="text-sm font-medium text-gris-300 hover:text-white transition-colors tracking-wider uppercase">Contacto</a>
-        <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white text-sm font-semibold px-6 py-2.5 rounded transition-all tracking-wider uppercase">
-          Reservar
-        </a>
-      </div>
-
-      <!-- Menú móvil botón -->
-      <button id="menu-btn" class="md:hidden text-white">
-        <i data-lucide="menu" class="w-7 h-7"></i>
-      </button>
-    </div>
-
-    <!-- Menú móvil desplegable -->
-    <div id="mobile-menu" class="hidden md:hidden bg-negro/95 backdrop-blur-md border-t border-gris-800">
-      <div class="px-6 py-6 flex flex-col gap-4">
-        <a href="#cartelera" class="text-gris-300 hover:text-white transition-colors tracking-wider uppercase text-sm">Cartelera</a>
-        <a href="#experiencia" class="text-gris-300 hover:text-white transition-colors tracking-wider uppercase text-sm">Experiencia</a>
-        <a href="#contacto" class="text-gris-300 hover:text-white transition-colors tracking-wider uppercase text-sm">Contacto</a>
-        <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white text-sm font-semibold px-6 py-3 rounded text-center tracking-wider uppercase mt-2">
-          Reservar
-        </a>
+      
+      <div class="hidden md:flex items-center gap-8 font-heading font-bold text-sm tracking-wide">
+        <a href="#salas" class="hover:text-accent transition-colors uppercase">Salas</a>
+        <a href="#eventos" class="hover:text-accent transition-colors uppercase">Eventos Corporativos</a>
+        <a href="#faq" class="hover:text-accent transition-colors uppercase">Preguntas</a>
+        <a href="#salas" class="btn-primary px-6 py-2.5 rounded">Reservar Ahora</a>
       </div>
     </div>
   </nav>
 
-  <!-- ============================================ -->
-  <!-- HERO — Estilo tráiler cinematográfico -->
-  <!-- ============================================ -->
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Fondo con gradiente dramático -->
-    <div class="absolute inset-0">
-      <div class="absolute inset-0 bg-gradient-to-b from-negro via-negro/60 to-negro"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-negro via-transparent to-negro"></div>
-      <!-- Resplandor rojo sutil -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-rojo/5 rounded-full blur-[150px]"></div>
+  <!-- HERO SECTION -->
+  <section class="relative min-h-screen flex items-center pt-20">
+    <div class="absolute inset-0 z-0">
+      <!-- Dark overlay for readability -->
+      <div class="absolute inset-0 bg-bgDark/70 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-transparent to-transparent z-10"></div>
+      <!-- Hero Image -->
+      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1920" alt="Escape Room Background" class="w-full h-full object-cover">
     </div>
 
-    <!-- Contenido del Hero -->
-    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-      <!-- Etiqueta superior -->
-      <div class="fade-up inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 mb-8">
-        <span class="w-2 h-2 bg-rojo rounded-full animate-pulse"></span>
-        <span class="text-xs font-medium tracking-[0.3em] uppercase text-gris-300">Temporada 2025 — Nuevas salas</span>
-      </div>
-
-      <!-- Titular principal -->
-      <h1 class="font-bebas text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-wide fade-up fade-up-delay-1">
-        NO ES UN JUEGO.<br>
-        <span class="text-rojo">ES TU PELÍCULA.</span>
-      </h1>
-
-      <!-- Descripción inmersiva -->
-      <p class="fade-up fade-up-delay-2 mt-8 text-lg md:text-xl text-gris-400 max-w-2xl mx-auto leading-relaxed font-light">
-        Entra en escenarios construidos con la precisión de un set de Hollywood.
-        57 minutos. Sin guion. Sin repeticiones. Solo tú contra la historia.
-      </p>
-
-      <!-- Botones CTA -->
-      <div class="fade-up fade-up-delay-3 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#cartelera" class="group bg-rojo hover:bg-rojo-hover text-white font-semibold px-10 py-4 rounded text-lg tracking-wider uppercase transition-all flex items-center gap-3">
-          <i data-lucide="clapperboard" class="w-5 h-5"></i>
-          Ver Cartelera
-        </a>
-        <a href="#trailer" class="group border border-white/30 hover:border-white text-white font-semibold px-10 py-4 rounded text-lg tracking-wider uppercase transition-all flex items-center gap-3">
-          <i data-lucide="play" class="w-5 h-5 group-hover:text-rojo transition-colors"></i>
-          Ver Trailer
-        </a>
-      </div>
-
-      <!-- Indicador de scroll -->
-      <div class="mt-20 animate-bounce">
-        <i data-lucide="chevron-down" class="w-6 h-6 text-gris-400 mx-auto"></i>
+    <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accent/20 border border-accent/50 text-accent font-bold text-xs uppercase tracking-wider mb-6">
+          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+          Nueva Sala Disponible
+        </div>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black italic uppercase leading-[0.9] tracking-tighter mb-6 shadow-black drop-shadow-lg">
+          ESCAPA DE LA <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-400">RUTINA</span>
+        </h1>
+        <p class="text-lg md:text-xl text-textMuted font-medium mb-10 max-w-xl">
+          Instalaciones de calidad cinematográfica, puzzles de última generación y 57 minutos para lograr lo imposible. ¿Estás listo?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#salas" class="btn-primary px-8 py-4 rounded text-center text-lg">Ver Experiencias</a>
+          <a href="#trailer" class="btn-outline px-8 py-4 rounded text-center text-lg flex items-center justify-center gap-2">
+            <i data-lucide="play-circle" class="w-5 h-5"></i> Ver Trailer
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- CARTELERA — Pósters de cine (cuadrícula 3 salas) -->
-  <!-- ============================================ -->
-  <section id="cartelera" class="relative py-24 px-6">
+  <!-- ROOMS SECTION (Estilo 60out/Enigma) -->
+  <section id="salas" class="py-24 px-6 md:px-12 bg-bgDark">
     <div class="max-w-7xl mx-auto">
-      <!-- Encabezado de sección -->
       <div class="text-center mb-16">
-        <span class="text-rojo text-sm font-semibold tracking-[0.3em] uppercase">En cartelera</span>
-        <h2 class="font-bebas text-5xl md:text-7xl mt-3 tracking-wide">ELIGE TU HISTORIA</h2>
-        <div class="w-16 h-0.5 bg-rojo mx-auto mt-4"></div>
+        <h2 class="text-4xl md:text-5xl font-heading font-black uppercase tracking-tight mb-4">Nuestras Salas</h2>
+        <p class="text-textMuted text-lg">Selecciona tu misión. Reserva con confirmación inmediata.</p>
       </div>
 
-      <!-- Cuadrícula de pósters -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <!-- PÓSTER 1: Proyecto Kane -->
-        <div class="poster-card group relative rounded-lg overflow-hidden cursor-pointer" style="aspect-ratio: 2/3;">
-          <!-- Imagen de fondo -->
-          <div class="poster-img absolute inset-0 transition-transform duration-700 ease-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-negro via-negro/30 to-transparent z-10"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(229,9,20,0.1) 0%, #0a0a0a 100%), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800') center center / cover no-repeat;"></div>
-            <!-- Icono decorativo -->
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <i data-lucide="cpu" class="w-32 h-32 text-white"></i>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- ROOM 1: PROYECTO KANE -->
+        <div class="room-card flex flex-col">
+          <div class="room-image-wrapper">
+            <div class="absolute top-4 left-4 z-10 bg-accent text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">
+              Nuevo
             </div>
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Proyecto Kane" class="room-image">
           </div>
-
-          <!-- Clasificación (esquina superior) -->
-          <div class="absolute top-4 left-4 z-20 bg-rojo text-white text-xs font-bold px-3 py-1 rounded">
-            ESTRENO
-          </div>
-          <div class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded border border-white/20">
-            +16
-          </div>
-
-          <!-- Info del póster (parte inferior) -->
-          <div class="absolute bottom-0 left-0 right-0 z-20 p-6">
-            <h3 class="font-bebas text-4xl tracking-wide mb-1">PROYECTO KANE</h3>
-            <p class="text-gris-400 text-sm mb-4 line-clamp-2">El Sitio-7 ha caído. Una consciencia depredadora te espera en la oscuridad.</p>
-
-            <!-- Estadísticas -->
-            <div class="flex items-center gap-4 text-xs text-gris-300 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i>
-                <span>2-5</span>
+          
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-2xl font-heading font-black uppercase tracking-tight">Proyecto Kane</h3>
+            </div>
+            <p class="text-textMuted text-sm mb-6 flex-grow">
+              El laboratorio Sitio-7 ha entrado en cierre de emergencia. El Dr. Kane ha desaparecido y la contención falla. Entra y reinicia el sistema antes de que "La Presencia" escape.
+            </p>
+            
+            <!-- Room Stats Grid -->
+            <div class="grid grid-cols-3 gap-4 border-t border-b border-gray-800 py-4 mb-6">
+              <div class="flex flex-col items-center text-center">
+                <i data-lucide="users" class="w-5 h-5 text-accent mb-1"></i>
+                <span class="text-xs text-textMuted font-medium">Jugadores</span>
+                <span class="text-sm font-bold">2 - 5</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                <span>60 min</span>
+              <div class="flex flex-col items-center text-center border-l border-r border-gray-800">
+                <i data-lucide="clock" class="w-5 h-5 text-accent mb-1"></i>
+                <span class="text-xs text-textMuted font-medium">Tiempo</span>
+                <span class="text-sm font-bold">60 Min</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="flame" class="w-3.5 h-3.5 text-rojo"></i>
-                <span class="text-rojo font-semibold">Alta (Sci-Fi)</span>
+              <div class="flex flex-col items-center text-center">
+                <span class="text-xs text-textMuted font-medium mb-1">Dificultad</span>
+                <div class="flex gap-1 mt-1">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <span class="text-xs font-bold mt-1 text-accent">Difícil</span>
               </div>
             </div>
-
-            <!-- Estrellas de dificultad -->
-            <div class="flex gap-1 mb-1">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-            </div>
-          </div>
-
-          <!-- Overlay de hover con botón -->
-          <div class="poster-overlay absolute inset-0 z-30 bg-negro/70 backdrop-blur-sm flex items-center justify-center">
-            <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white font-bold text-lg px-8 py-4 rounded tracking-wider uppercase transition-all transform hover:scale-105 flex items-center gap-3">
-              <i data-lucide="ticket" class="w-5 h-5"></i>
-              Comprar Entradas
-            </a>
+            
+            <a href="#" class="btn-primary w-full py-3 rounded text-center">Reservar Sala</a>
           </div>
         </div>
 
-        <!-- PÓSTER 2: Paciente Cero -->
-        <div class="poster-card group relative rounded-lg overflow-hidden cursor-pointer" style="aspect-ratio: 2/3;">
-          <div class="poster-img absolute inset-0 transition-transform duration-700 ease-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-negro via-negro/30 to-transparent z-10"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0,180,80,0.08) 0%, #0a0a0a 100%), linear-gradient(135deg, #1a2e1a 0%, #0d2818 50%, #0a1f0a 100%);"></div>
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <i data-lucide="biohazard" class="w-32 h-32 text-green-500"></i>
-            </div>
+        <!-- ROOM 2: EL BANCO -->
+        <div class="room-card flex flex-col">
+          <div class="room-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1555529733-0e67056058e3?auto=format&fit=crop&q=80&w=800" alt="El Golpe" class="room-image">
           </div>
-
-          <div class="absolute top-4 left-4 z-20 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded">
-            POPULAR
-          </div>
-          <div class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded border border-white/20">
-            +14
-          </div>
-
-          <div class="absolute bottom-0 left-0 right-0 z-20 p-6">
-            <h3 class="font-bebas text-4xl tracking-wide mb-1">PACIENTE CERO</h3>
-            <p class="text-gris-400 text-sm mb-4 line-clamp-2">El virus se propaga. El laboratorio se sella en 57 minutos. Encuentra la cura o no saldrás.</p>
-
-            <div class="flex items-center gap-4 text-xs text-gris-300 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i>
-                <span>2-8</span>
+          
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-2xl font-heading font-black uppercase tracking-tight mb-2">El Golpe</h3>
+            <p class="text-textMuted text-sm mb-6 flex-grow">
+              Tienen acceso a la bóveda principal del Banco Central. El sistema de seguridad se reiniciará en 57 minutos. Entren, tomen el objetivo y salgan sin ser detectados.
+            </p>
+            
+            <div class="grid grid-cols-3 gap-4 border-t border-b border-gray-800 py-4 mb-6">
+              <div class="flex flex-col items-center text-center">
+                <i data-lucide="users" class="w-5 h-5 text-accent mb-1"></i>
+                <span class="text-xs text-textMuted font-medium">Jugadores</span>
+                <span class="text-sm font-bold">2 - 6</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                <span>57 min</span>
+              <div class="flex flex-col items-center text-center border-l border-r border-gray-800">
+                <i data-lucide="clock" class="w-5 h-5 text-accent mb-1"></i>
+                <span class="text-xs text-textMuted font-medium">Tiempo</span>
+                <span class="text-sm font-bold">57 Min</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="flame" class="w-3.5 h-3.5 text-yellow-500"></i>
-                <span class="text-yellow-500 font-semibold">Alta</span>
+              <div class="flex flex-col items-center text-center">
+                <span class="text-xs text-textMuted font-medium mb-1">Dificultad</span>
+                <div class="flex gap-1 mt-1">
+                  <div class="difficulty-dot active-high"></div>
+                  <div class="difficulty-dot active-high"></div>
+                  <div class="difficulty-dot active-high"></div>
+                  <div class="difficulty-dot"></div>
+                  <div class="difficulty-dot"></div>
+                </div>
+                <span class="text-xs font-bold mt-1 text-yellow-500">Media</span>
               </div>
             </div>
-
-            <div class="flex gap-1 mb-1">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 text-gris-700"></i>
-            </div>
-          </div>
-
-          <div class="poster-overlay absolute inset-0 z-30 bg-negro/70 backdrop-blur-sm flex items-center justify-center">
-            <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white font-bold text-lg px-8 py-4 rounded tracking-wider uppercase transition-all transform hover:scale-105 flex items-center gap-3">
-              <i data-lucide="ticket" class="w-5 h-5"></i>
-              Comprar Entradas
-            </a>
+            
+            <a href="#" class="btn-primary w-full py-3 rounded text-center">Reservar Sala</a>
           </div>
         </div>
 
-        <!-- PÓSTER 3: El Último Acto -->
-        <div class="poster-card group relative rounded-lg overflow-hidden cursor-pointer" style="aspect-ratio: 2/3;">
-          <div class="poster-img absolute inset-0 transition-transform duration-700 ease-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-negro via-negro/30 to-transparent z-10"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(180,0,0,0.08) 0%, #0a0a0a 100%), linear-gradient(135deg, #2e1a1a 0%, #281010 50%, #1f0a0a 100%);"></div>
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <i data-lucide="drama" class="w-32 h-32 text-red-400"></i>
-            </div>
+        <!-- ROOM 3: PSIQUIÁTRICO -->
+        <div class="room-card flex flex-col">
+          <div class="room-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&q=80&w=800" alt="Pabellón B" class="room-image">
           </div>
-
-          <div class="absolute top-4 left-4 z-20 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded">
-            NUEVA
-          </div>
-          <div class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded border border-white/20">
-            +18
-          </div>
-
-          <div class="absolute bottom-0 left-0 right-0 z-20 p-6">
-            <h3 class="font-bebas text-4xl tracking-wide mb-1">EL ÚLTIMO ACTO</h3>
-            <p class="text-gris-400 text-sm mb-4 line-clamp-2">Un teatro maldito. Una función que nunca terminó. Esta noche, tú eres el protagonista.</p>
-
-            <div class="flex items-center gap-4 text-xs text-gris-300 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i>
-                <span>2-5</span>
+          
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-2xl font-heading font-black uppercase tracking-tight mb-2">Pabellón B</h3>
+            <p class="text-textMuted text-sm mb-6 flex-grow">
+              Están encerrados en el ala abandonada del Hospital Blackwood. Los pacientes afirman que el antiguo director sigue realizando rondas nocturnas. Escapen antes de la medianoche.
+            </p>
+            
+            <div class="grid grid-cols-3 gap-4 border-t border-b border-gray-800 py-4 mb-6">
+              <div class="flex flex-col items-center text-center">
+                <i data-lucide="users" class="w-5 h-5 text-accent mb-1"></i>
+                <span class="text-xs text-textMuted font-medium">Jugadores</span>
+                <span class="text-sm font-bold">2 - 6</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                <span>57 min</span>
+              <div class="flex flex-col items-center text-center border-l border-r border-gray-800">
+                <i data-lucide="clock" class="w-5 h-5 text-accent mb-1"></i>
+                <span class="text-xs text-textMuted font-medium">Tiempo</span>
+                <span class="text-sm font-bold">57 Min</span>
               </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="flame" class="w-3.5 h-3.5 text-orange-400"></i>
-                <span class="text-orange-400 font-semibold">Media</span>
+              <div class="flex flex-col items-center text-center">
+                <span class="text-xs text-textMuted font-medium mb-1">Dificultad</span>
+                <div class="flex gap-1 mt-1">
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                  <div class="difficulty-dot active"></div>
+                </div>
+                <span class="text-xs font-bold mt-1 text-accent">Extrema</span>
               </div>
             </div>
-
-            <div class="flex gap-1 mb-1">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 text-gris-700"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 text-gris-700"></i>
-            </div>
-          </div>
-
-          <div class="poster-overlay absolute inset-0 z-30 bg-negro/70 backdrop-blur-sm flex items-center justify-center">
-            <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white font-bold text-lg px-8 py-4 rounded tracking-wider uppercase transition-all transform hover:scale-105 flex items-center gap-3">
-              <i data-lucide="ticket" class="w-5 h-5"></i>
-              Comprar Entradas
-            </a>
+            
+            <a href="#" class="btn-primary w-full py-3 rounded text-center">Reservar Sala</a>
           </div>
         </div>
 
@@ -368,160 +305,74 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- EXPERIENCIA — Números y propuesta de valor -->
-  <!-- ============================================ -->
-  <section id="experiencia" class="relative py-24 px-6 border-t border-gris-800">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <span class="text-rojo text-sm font-semibold tracking-[0.3em] uppercase">La experiencia</span>
-        <h2 class="font-bebas text-5xl md:text-7xl mt-3 tracking-wide">ESTO NO ES UN ESCAPE ROOM</h2>
-        <div class="w-16 h-0.5 bg-rojo mx-auto mt-4"></div>
-      </div>
-
+  <!-- FEATURES (Social Proof / Info) -->
+  <section class="py-20 border-y border-gray-900 bg-[#0d0d0d]">
+    <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="door-open" class="w-8 h-8 text-rojo"></i>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
+            <i data-lucide="star" class="w-8 h-8 text-accent"></i>
           </div>
-          <div class="font-bebas text-5xl text-white">57</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Minutos por sesión</div>
+          <h4 class="font-heading font-black text-2xl">4.9/5</h4>
+          <p class="text-textMuted text-sm">Reseñas en Google</p>
         </div>
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="map" class="w-8 h-8 text-rojo"></i>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
+            <i data-lucide="lock" class="w-8 h-8 text-accent"></i>
           </div>
-          <div class="font-bebas text-5xl text-white">3</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Salas únicas</div>
+          <h4 class="font-heading font-black text-2xl">Privado</h4>
+          <p class="text-textMuted text-sm">Juegas solo con tu grupo</p>
         </div>
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="trophy" class="w-8 h-8 text-rojo"></i>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
+            <i data-lucide="cpu" class="w-8 h-8 text-accent"></i>
           </div>
-          <div class="font-bebas text-5xl text-white">23%</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Tasa de escape</div>
+          <h4 class="font-heading font-black text-2xl">Generación 3</h4>
+          <p class="text-textMuted text-sm">Tecnología e inmersión</p>
         </div>
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="star" class="w-8 h-8 text-rojo"></i>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
+            <i data-lucide="map-pin" class="w-8 h-8 text-accent"></i>
           </div>
-          <div class="font-bebas text-5xl text-white">4.9</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Valoración media</div>
+          <h4 class="font-heading font-black text-2xl">Central</h4>
+          <p class="text-textMuted text-sm">Ubicación de fácil acceso</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- BANNER DE URGENCIA — CTA final -->
-  <!-- ============================================ -->
-  <section id="reservar" class="relative py-24 px-6 overflow-hidden">
-    <!-- Resplandor rojo de fondo -->
-    <div class="absolute inset-0 bg-gradient-to-r from-negro via-rojo/10 to-negro"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-rojo/10 rounded-full blur-[120px]"></div>
-
-    <div class="relative z-10 max-w-4xl mx-auto text-center">
-      <h2 class="font-bebas text-6xl md:text-8xl tracking-wide leading-none">
-        ¿TIENES LO<br><span class="text-rojo">NECESARIO</span>?
-      </h2>
-      <p class="text-gris-400 text-lg mt-6 mb-10 max-w-xl mx-auto">
-        Las plazas se agotan. Los valientes no esperan. Reserva tu sesión antes de que la historia se cierre sin ti.
-      </p>
-      <a href="#" class="inline-flex items-center gap-3 bg-rojo hover:bg-rojo-hover text-white font-bold text-xl px-14 py-5 rounded transition-all transform hover:scale-105 tracking-wider uppercase">
-        <i data-lucide="ticket" class="w-6 h-6"></i>
-        Reservar Ahora
-      </a>
-    </div>
-  </section>
-
-  <!-- ============================================ -->
-  <!-- FOOTER — Minimalista y premium -->
-  <!-- ============================================ -->
-  <footer id="contacto" class="border-t border-gris-800 py-12 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-        <!-- Logo -->
-        <div>
-          <span class="font-bebas text-2xl tracking-wider">
-            <span class="text-rojo">57</span>ROOMS
-          </span>
-          <p class="text-gris-400 text-xs mt-1 tracking-wider">ESCAPE ROOM EXPERIENCE</p>
-        </div>
-
-        <!-- Links -->
-        <div class="flex items-center gap-6 text-sm text-gris-400">
-          <a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
-          <a href="#" class="hover:text-white transition-colors">Privacidad</a>
-          <a href="#" class="hover:text-white transition-colors">FAQ</a>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="flex items-center gap-4">
-          <a href="#" class="text-gris-400 hover:text-rojo transition-colors">
-            <i data-lucide="instagram" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="text-gris-400 hover:text-rojo transition-colors">
-            <i data-lucide="facebook" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="text-gris-400 hover:text-rojo transition-colors">
-            <i data-lucide="youtube" class="w-5 h-5"></i>
-          </a>
-        </div>
+  <!-- FOOTER -->
+  <footer class="bg-bgDark py-12 border-t border-gray-900">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-2xl font-heading font-black tracking-tighter">
+        57<span class="text-accent">ROOMS</span>
       </div>
-
-      <div class="text-center text-gris-700 text-xs mt-8">
-        &copy; 2025 57Rooms. Todos los derechos reservados.
+      <div class="text-textMuted text-sm">
+        &copy; 2026 57Rooms Escape Room. Todos los derechos reservados.
+      </div>
+      <div class="flex gap-4">
+        <a href="#" class="w-10 h-10 rounded bg-bgCard flex items-center justify-center hover:text-accent transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        <a href="#" class="w-10 h-10 rounded bg-bgCard flex items-center justify-center hover:text-accent transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
       </div>
     </div>
   </footer>
 
-  <!-- ============================================ -->
-  <!-- SCRIPTS -->
-  <!-- ============================================ -->
   <script>
-    // Inicializar iconos Lucide
     lucide.createIcons();
 
-    // Navbar: oscurecer al hacer scroll
+    // Efecto nav al scrollear
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
-        navbar.classList.add('bg-negro/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-negro/50');
+        navbar.classList.add('nav-blur');
+        navbar.classList.remove('py-4');
+        navbar.classList.add('py-3');
       } else {
-        navbar.classList.remove('bg-negro/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-negro/50');
+        navbar.classList.remove('nav-blur');
+        navbar.classList.remove('py-3');
+        navbar.classList.add('py-4');
       }
     });
-
-    // Menú móvil: toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Cerrar menú móvil al hacer clic en un link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-
-    // Línea roja del logo (animación al cargar)
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.logo-line').forEach(el => el.classList.add('active'));
-    });
-
-    // Scroll suave para anclas
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
   </script>
-
 </body>
 </html>
