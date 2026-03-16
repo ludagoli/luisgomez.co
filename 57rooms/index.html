@@ -3,363 +3,207 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>57 Rooms — Escape Room Experience</title>
+  <title>57 Rooms — The Gold Standard of Escape Rooms</title>
 
-  <!-- Google Fonts: Bebas Neue (titulares) + Montserrat (cuerpo) -->
+  <!-- Google Fonts: Bebas Neue + Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS vía CDN -->
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Tailwind CSS via CDN with Custom Config -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            negro: '#0a0a0a',
-            rojo: '#e50914',
-            'rojo-hover': '#ff1a25',
-            gris: {
-              900: '#111111',
-              800: '#1a1a1a',
-              700: '#2a2a2a',
-              400: '#999999',
-              300: '#bbbbbb',
-            }
+            obsidian: '#080808',
+            gold: {
+              DEFAULT: '#c5a059',
+              light: '#e2c286',
+              dark: '#8e6f3e',
+            },
+            platinum: '#e5e5e5',
           },
           fontFamily: {
             bebas: ['Bebas Neue', 'sans-serif'],
-            mont: ['Montserrat', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
           }
         }
       }
     }
   </script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
   <style>
-    /* Scrollbar personalizado */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0a; }
-    ::-webkit-scrollbar-thumb { background: #e50914; border-radius: 3px; }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #080808; }
+    ::-webkit-scrollbar-thumb { background: #c5a059; }
 
-    /* Animación de entrada del hero */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 1s ease-out forwards; }
-    .fade-up-delay-1 { animation-delay: 0.3s; opacity: 0; }
-    .fade-up-delay-2 { animation-delay: 0.6s; opacity: 0; }
-    .fade-up-delay-3 { animation-delay: 0.9s; opacity: 0; }
-
-    /* Efecto de grano cinematográfico */
+    /* Film Grain Overlay */
     .grain::after {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 100;
+      z-index: 50;
     }
 
-    /* Línea roja animada bajo el logo */
-    .logo-line {
-      width: 0;
-      transition: width 1s ease-out;
+    /* Cinematic Glows */
+    .gold-glow {
+      box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
     }
-    .logo-line.active {
-      width: 60px;
+    
+    .text-gradient {
+      background: linear-gradient(to right, #c5a059, #e2c286, #c5a059);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    /* Póster hover overlay */
-    .poster-overlay {
-      opacity: 0;
-      transition: opacity 0.4s ease;
+    /* Poster Hover */
+    .poster-card {
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .poster-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
     }
     .poster-card:hover .poster-overlay {
-      opacity: 1;
+      background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.4) 100%);
     }
-    .poster-card:hover .poster-img {
-      transform: scale(1.08);
+
+    @keyframes shine {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+    .btn-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shine 3s infinite;
     }
   </style>
 </head>
 
-<body class="bg-negro text-white font-mont grain">
+<body class="bg-obsidian text-platinum font-sans grain">
 
-  <!-- ============================================ -->
-  <!-- NAVBAR — Fija, transparente, oscurece al scroll -->
-  <!-- ============================================ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-2 group">
-        <span class="font-bebas text-3xl tracking-wider">
-          <span class="text-rojo">57</span>ROOMS
-        </span>
-      </a>
-
-      <!-- Links desktop -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#cartelera" class="text-sm font-medium text-gris-300 hover:text-white transition-colors tracking-wider uppercase">Cartelera</a>
-        <a href="#experiencia" class="text-sm font-medium text-gris-300 hover:text-white transition-colors tracking-wider uppercase">Experiencia</a>
-        <a href="#contacto" class="text-sm font-medium text-gris-300 hover:text-white transition-colors tracking-wider uppercase">Contacto</a>
-        <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white text-sm font-semibold px-6 py-2.5 rounded transition-all tracking-wider uppercase">
-          Reservar
-        </a>
+  <!-- NAVIGATION -->
+  <nav class="fixed top-0 w-full z-100 px-8 py-6 flex justify-between items-center bg-gradient-to-b from-obsidian to-transparent">
+    <a href="/" class="flex items-center gap-3">
+      <div class="w-10 h-10 border border-gold flex items-center justify-center">
+        <span class="font-bebas text-2xl text-gold pt-1">57</span>
       </div>
-
-      <!-- Menú móvil botón -->
-      <button id="menu-btn" class="md:hidden text-white">
-        <i data-lucide="menu" class="w-7 h-7"></i>
-      </button>
-    </div>
-
-    <!-- Menú móvil desplegable -->
-    <div id="mobile-menu" class="hidden md:hidden bg-negro/95 backdrop-blur-md border-t border-gris-800">
-      <div class="px-6 py-6 flex flex-col gap-4">
-        <a href="#cartelera" class="text-gris-300 hover:text-white transition-colors tracking-wider uppercase text-sm">Cartelera</a>
-        <a href="#experiencia" class="text-gris-300 hover:text-white transition-colors tracking-wider uppercase text-sm">Experiencia</a>
-        <a href="#contacto" class="text-gris-300 hover:text-white transition-colors tracking-wider uppercase text-sm">Contacto</a>
-        <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white text-sm font-semibold px-6 py-3 rounded text-center tracking-wider uppercase mt-2">
-          Reservar
-        </a>
-      </div>
+      <span class="font-bebas text-2xl tracking-[0.2em]">ROOMS</span>
+    </a>
+    <div class="hidden md:flex gap-10 font-bebas text-lg tracking-widest text-gold/60">
+      <a href="#premieres" class="hover:text-gold transition-colors">SEASON 01</a>
+      <a href="#" class="hover:text-gold transition-colors">EXPERIENCE</a>
+      <a href="#" class="hover:text-gold transition-colors border-b border-gold/30">BOOK NOW</a>
     </div>
   </nav>
 
-  <!-- ============================================ -->
-  <!-- HERO — Estilo tráiler cinematográfico -->
-  <!-- ============================================ -->
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Fondo con gradiente dramático -->
-    <div class="absolute inset-0">
-      <div class="absolute inset-0 bg-gradient-to-b from-negro via-negro/60 to-negro"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-negro via-transparent to-negro"></div>
-      <!-- Resplandor rojo sutil -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-rojo/5 rounded-full blur-[150px]"></div>
+  <!-- HERO SECTION -->
+  <section class="relative h-screen flex flex-col justify-center items-center text-center px-6">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/40 to-obsidian"></div>
+      <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1920" class="w-full h-full object-cover grayscale opacity-30" alt="Cinematic background">
     </div>
 
-    <!-- Contenido del Hero -->
-    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-      <!-- Etiqueta superior -->
-      <div class="fade-up inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-5 py-2 mb-8">
-        <span class="w-2 h-2 bg-rojo rounded-full animate-pulse"></span>
-        <span class="text-xs font-medium tracking-[0.3em] uppercase text-gris-300">Temporada 2025 — Nuevas salas</span>
-      </div>
-
-      <!-- Titular principal -->
-      <h1 class="font-bebas text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-wide fade-up fade-up-delay-1">
-        NO ES UN JUEGO.<br>
-        <span class="text-rojo">ES TU PELÍCULA.</span>
+    <div class="relative z-10 max-w-5xl">
+      <span class="font-bebas text-gold text-xl tracking-[0.5em] mb-4 block">NOW SHOWING</span>
+      <h1 class="font-bebas text-7xl md:text-[10rem] leading-none text-platinum tracking-tighter mb-6">
+        PREMIUM <span class="text-gradient">ADRENALINE</span>
       </h1>
-
-      <!-- Descripción inmersiva -->
-      <p class="fade-up fade-up-delay-2 mt-8 text-lg md:text-xl text-gris-400 max-w-2xl mx-auto leading-relaxed font-light">
-        Entra en escenarios construidos con la precisión de un set de Hollywood.
-        57 minutos. Sin guion. Sin repeticiones. Solo tú contra la historia.
+      <p class="font-serif italic text-xl md:text-3xl text-gold/80 mb-12 max-w-3xl mx-auto">
+        "Don't just watch the story. Live the premiere."
       </p>
-
-      <!-- Botones CTA -->
-      <div class="fade-up fade-up-delay-3 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#cartelera" class="group bg-rojo hover:bg-rojo-hover text-white font-semibold px-10 py-4 rounded text-lg tracking-wider uppercase transition-all flex items-center gap-3">
-          <i data-lucide="clapperboard" class="w-5 h-5"></i>
-          Ver Cartelera
-        </a>
-        <a href="#trailer" class="group border border-white/30 hover:border-white text-white font-semibold px-10 py-4 rounded text-lg tracking-wider uppercase transition-all flex items-center gap-3">
-          <i data-lucide="play" class="w-5 h-5 group-hover:text-rojo transition-colors"></i>
-          Ver Trailer
+      <div class="flex gap-6 justify-center">
+        <a href="#premieres" class="btn-shine relative overflow-hidden bg-gold text-obsidian font-bebas text-2xl px-12 py-4 tracking-widest hover:bg-gold-light transition-all">
+          EXPLORE CATALOG
         </a>
       </div>
-
-      <!-- Indicador de scroll -->
-      <div class="mt-20 animate-bounce">
-        <i data-lucide="chevron-down" class="w-6 h-6 text-gris-400 mx-auto"></i>
-      </div>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- CARTELERA — Pósters de cine (cuadrícula 3 salas) -->
-  <!-- ============================================ -->
-  <section id="cartelera" class="relative py-24 px-6">
+  <!-- PREMIERES CATALOG -->
+  <section id="premieres" class="py-32 px-8">
     <div class="max-w-7xl mx-auto">
-      <!-- Encabezado de sección -->
-      <div class="text-center mb-16">
-        <span class="text-rojo text-sm font-semibold tracking-[0.3em] uppercase">En cartelera</span>
-        <h2 class="font-bebas text-5xl md:text-7xl mt-3 tracking-wide">ELIGE TU HISTORIA</h2>
-        <div class="w-16 h-0.5 bg-rojo mx-auto mt-4"></div>
+      <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+        <div>
+          <h2 class="font-bebas text-6xl md:text-8xl tracking-tight mb-2">SEASON 01</h2>
+          <p class="font-serif italic text-gold text-2xl">The inaugural collection of Sitio-7 productions.</p>
+        </div>
+        <div class="hidden md:block w-32 h-[1px] bg-gold/30 mb-6"></div>
       </div>
 
-      <!-- Cuadrícula de pósters -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <!-- PÓSTER 1: La Bóveda -->
-        <div class="poster-card group relative rounded-lg overflow-hidden cursor-pointer" style="aspect-ratio: 2/3;">
-          <!-- Imagen de fondo -->
-          <div class="poster-img absolute inset-0 transition-transform duration-700 ease-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-negro via-negro/30 to-transparent z-10"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(229,9,20,0.1) 0%, #0a0a0a 100%), linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);"></div>
-            <!-- Icono decorativo -->
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <i data-lucide="vault" class="w-32 h-32 text-white"></i>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        
+        <!-- ROOM: PROYECTO KANE -->
+        <div class="poster-card relative aspect-[2/3] group overflow-hidden border border-gold/10">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Proyecto Kane">
+          <div class="poster-overlay absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent p-10 flex flex-col justify-end transition-all">
+            <div class="mb-4">
+              <span class="bg-gold text-obsidian px-3 py-1 text-xs font-bold tracking-widest uppercase">FEATURING S01</span>
             </div>
-          </div>
-
-          <!-- Clasificación (esquina superior) -->
-          <div class="absolute top-4 left-4 z-20 bg-rojo text-white text-xs font-bold px-3 py-1 rounded">
-            ESTRENO
-          </div>
-          <div class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded border border-white/20">
-            +16
-          </div>
-
-          <!-- Info del póster (parte inferior) -->
-          <div class="absolute bottom-0 left-0 right-0 z-20 p-6">
-            <h3 class="font-bebas text-4xl tracking-wide mb-1">LA BÓVEDA</h3>
-            <p class="text-gris-400 text-sm mb-4 line-clamp-2">Un atraco imposible. Un reloj que no perdona. ¿Podrás abrir la cámara más segura del mundo?</p>
-
-            <!-- Estadísticas -->
-            <div class="flex items-center gap-4 text-xs text-gris-300 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i>
-                <span>2-6</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                <span>57 min</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="flame" class="w-3.5 h-3.5 text-rojo"></i>
-                <span class="text-rojo font-semibold">Extrema</span>
-              </div>
+            <h3 class="font-bebas text-5xl md:text-6xl text-platinum leading-none mb-4">PROYECTO KANE</h3>
+            <div class="flex gap-4 text-gold/60 text-xs tracking-widest uppercase mb-6">
+              <span>2-5 PLAYERS</span>
+              <span>•</span>
+              <span>60 MINUTES</span>
             </div>
-
-            <!-- Estrellas de dificultad -->
-            <div class="flex gap-1 mb-1">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-            </div>
-          </div>
-
-          <!-- Overlay de hover con botón -->
-          <div class="poster-overlay absolute inset-0 z-30 bg-negro/70 backdrop-blur-sm flex items-center justify-center">
-            <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white font-bold text-lg px-8 py-4 rounded tracking-wider uppercase transition-all transform hover:scale-105 flex items-center gap-3">
-              <i data-lucide="ticket" class="w-5 h-5"></i>
-              Comprar Entradas
+            <p class="text-sm text-platinum/60 font-serif italic line-clamp-2 mb-8 group-hover:line-clamp-none transition-all">
+              Vertex Laboratory Sitio-7 has gone silent. Dr. Kane is missing. Enter the containtment zone and survive The Presence.
+            </p>
+            <a href="#" class="w-full border border-gold/40 hover:border-gold py-4 text-center font-bebas tracking-widest text-gold hover:bg-gold hover:text-obsidian transition-all">
+              GET TICKETS
             </a>
           </div>
         </div>
 
-        <!-- PÓSTER 2: Paciente Cero -->
-        <div class="poster-card group relative rounded-lg overflow-hidden cursor-pointer" style="aspect-ratio: 2/3;">
-          <div class="poster-img absolute inset-0 transition-transform duration-700 ease-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-negro via-negro/30 to-transparent z-10"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0,180,80,0.08) 0%, #0a0a0a 100%), linear-gradient(135deg, #1a2e1a 0%, #0d2818 50%, #0a1f0a 100%);"></div>
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <i data-lucide="biohazard" class="w-32 h-32 text-green-500"></i>
+        <!-- ROOM: THE VAULT -->
+        <div class="poster-card relative aspect-[2/3] group overflow-hidden border border-gold/10">
+          <img src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="The Vault">
+          <div class="poster-overlay absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent p-10 flex flex-col justify-end transition-all">
+            <h3 class="font-bebas text-5xl md:text-6xl text-platinum leading-none mb-4">THE VAULT</h3>
+            <div class="flex gap-4 text-gold/60 text-xs tracking-widest uppercase mb-6">
+              <span>2-6 PLAYERS</span>
+              <span>•</span>
+              <span>57 MINUTES</span>
             </div>
-          </div>
-
-          <div class="absolute top-4 left-4 z-20 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded">
-            POPULAR
-          </div>
-          <div class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded border border-white/20">
-            +14
-          </div>
-
-          <div class="absolute bottom-0 left-0 right-0 z-20 p-6">
-            <h3 class="font-bebas text-4xl tracking-wide mb-1">PACIENTE CERO</h3>
-            <p class="text-gris-400 text-sm mb-4 line-clamp-2">El virus se propaga. El laboratorio se sella en 57 minutos. Encuentra la cura o no saldrás.</p>
-
-            <div class="flex items-center gap-4 text-xs text-gris-300 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i>
-                <span>2-8</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                <span>57 min</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="flame" class="w-3.5 h-3.5 text-yellow-500"></i>
-                <span class="text-yellow-500 font-semibold">Alta</span>
-              </div>
-            </div>
-
-            <div class="flex gap-1 mb-1">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 text-gris-700"></i>
-            </div>
-          </div>
-
-          <div class="poster-overlay absolute inset-0 z-30 bg-negro/70 backdrop-blur-sm flex items-center justify-center">
-            <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white font-bold text-lg px-8 py-4 rounded tracking-wider uppercase transition-all transform hover:scale-105 flex items-center gap-3">
-              <i data-lucide="ticket" class="w-5 h-5"></i>
-              Comprar Entradas
+            <p class="text-sm text-platinum/60 font-serif italic line-clamp-2 mb-8 group-hover:line-clamp-none transition-all">
+              A high-stakes heist against time. Infiltrate the most secure depository in the city before the silent alarm triggers.
+            </p>
+            <a href="#" class="w-full border border-gold/40 hover:border-gold py-4 text-center font-bebas tracking-widest text-gold hover:bg-gold hover:text-obsidian transition-all">
+              GET TICKETS
             </a>
           </div>
         </div>
 
-        <!-- PÓSTER 3: El Último Acto -->
-        <div class="poster-card group relative rounded-lg overflow-hidden cursor-pointer" style="aspect-ratio: 2/3;">
-          <div class="poster-img absolute inset-0 transition-transform duration-700 ease-out">
-            <div class="absolute inset-0 bg-gradient-to-t from-negro via-negro/30 to-transparent z-10"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(180,0,0,0.08) 0%, #0a0a0a 100%), linear-gradient(135deg, #2e1a1a 0%, #281010 50%, #1f0a0a 100%);"></div>
-            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
-              <i data-lucide="drama" class="w-32 h-32 text-red-400"></i>
+        <!-- ROOM: THE STAGE -->
+        <div class="poster-card relative aspect-[2/3] group overflow-hidden border border-gold/10">
+          <img src="https://images.unsplash.com/photo-1503095396549-8072f6f9c3c2?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="The Stage">
+          <div class="poster-overlay absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent p-10 flex flex-col justify-end transition-all">
+            <h3 class="font-bebas text-5xl md:text-6xl text-platinum leading-none mb-4">THE STAGE</h3>
+            <div class="flex gap-4 text-gold/60 text-xs tracking-widest uppercase mb-6">
+              <span>2-4 PLAYERS</span>
+              <span>•</span>
+              <span>57 MINUTES</span>
             </div>
-          </div>
-
-          <div class="absolute top-4 left-4 z-20 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded">
-            NUEVA
-          </div>
-          <div class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded border border-white/20">
-            +18
-          </div>
-
-          <div class="absolute bottom-0 left-0 right-0 z-20 p-6">
-            <h3 class="font-bebas text-4xl tracking-wide mb-1">EL ÚLTIMO ACTO</h3>
-            <p class="text-gris-400 text-sm mb-4 line-clamp-2">Un teatro maldito. Una función que nunca terminó. Esta noche, tú eres el protagonista.</p>
-
-            <div class="flex items-center gap-4 text-xs text-gris-300 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="users" class="w-3.5 h-3.5"></i>
-                <span>2-5</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                <span>57 min</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="flame" class="w-3.5 h-3.5 text-orange-400"></i>
-                <span class="text-orange-400 font-semibold">Media</span>
-              </div>
-            </div>
-
-            <div class="flex gap-1 mb-1">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-rojo text-rojo"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 text-gris-700"></i>
-              <i data-lucide="star" class="w-3.5 h-3.5 text-gris-700"></i>
-            </div>
-          </div>
-
-          <div class="poster-overlay absolute inset-0 z-30 bg-negro/70 backdrop-blur-sm flex items-center justify-center">
-            <a href="#reservar" class="bg-rojo hover:bg-rojo-hover text-white font-bold text-lg px-8 py-4 rounded tracking-wider uppercase transition-all transform hover:scale-105 flex items-center gap-3">
-              <i data-lucide="ticket" class="w-5 h-5"></i>
-              Comprar Entradas
+            <p class="text-sm text-platinum/60 font-serif italic line-clamp-2 mb-8 group-hover:line-clamp-none transition-all">
+              The play never ended. The theatre is haunted by its last performance. Break the curse before the curtain falls.
+            </p>
+            <a href="#" class="w-full border border-gold/40 hover:border-gold py-4 text-center font-bebas tracking-widest text-gold hover:bg-gold hover:text-obsidian transition-all">
+              GET TICKETS
             </a>
           </div>
         </div>
@@ -368,160 +212,35 @@
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- EXPERIENCIA — Números y propuesta de valor -->
-  <!-- ============================================ -->
-  <section id="experiencia" class="relative py-24 px-6 border-t border-gris-800">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <span class="text-rojo text-sm font-semibold tracking-[0.3em] uppercase">La experiencia</span>
-        <h2 class="font-bebas text-5xl md:text-7xl mt-3 tracking-wide">ESTO NO ES UN ESCAPE ROOM</h2>
-        <div class="w-16 h-0.5 bg-rojo mx-auto mt-4"></div>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="door-open" class="w-8 h-8 text-rojo"></i>
-          </div>
-          <div class="font-bebas text-5xl text-white">57</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Minutos por sesión</div>
-        </div>
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="map" class="w-8 h-8 text-rojo"></i>
-          </div>
-          <div class="font-bebas text-5xl text-white">3</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Salas únicas</div>
-        </div>
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="trophy" class="w-8 h-8 text-rojo"></i>
-          </div>
-          <div class="font-bebas text-5xl text-white">23%</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Tasa de escape</div>
-        </div>
-        <div>
-          <div class="flex justify-center mb-4">
-            <i data-lucide="star" class="w-8 h-8 text-rojo"></i>
-          </div>
-          <div class="font-bebas text-5xl text-white">4.9</div>
-          <div class="text-gris-400 text-sm mt-1 uppercase tracking-wider">Valoración media</div>
-        </div>
-      </div>
+  <!-- URGENCY BANNER -->
+  <section class="py-40 bg-obsidian border-y border-gold/10 overflow-hidden relative">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold rounded-full blur-[200px]"></div>
     </div>
-  </section>
-
-  <!-- ============================================ -->
-  <!-- BANNER DE URGENCIA — CTA final -->
-  <!-- ============================================ -->
-  <section id="reservar" class="relative py-24 px-6 overflow-hidden">
-    <!-- Resplandor rojo de fondo -->
-    <div class="absolute inset-0 bg-gradient-to-r from-negro via-rojo/10 to-negro"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-rojo/10 rounded-full blur-[120px]"></div>
-
-    <div class="relative z-10 max-w-4xl mx-auto text-center">
-      <h2 class="font-bebas text-6xl md:text-8xl tracking-wide leading-none">
-        ¿TIENES LO<br><span class="text-rojo">NECESARIO</span>?
+    <div class="relative z-10 text-center max-w-4xl mx-auto px-6">
+      <h2 class="font-bebas text-7xl md:text-9xl leading-none mb-8">
+        THE CURTAIN <br><span class="text-gold">IS RISING.</span>
       </h2>
-      <p class="text-gris-400 text-lg mt-6 mb-10 max-w-xl mx-auto">
-        Las plazas se agotan. Los valientes no esperan. Reserva tu sesión antes de que la historia se cierre sin ti.
-      </p>
-      <a href="#" class="inline-flex items-center gap-3 bg-rojo hover:bg-rojo-hover text-white font-bold text-xl px-14 py-5 rounded transition-all transform hover:scale-105 tracking-wider uppercase">
-        <i data-lucide="ticket" class="w-6 h-6"></i>
-        Reservar Ahora
+      <p class="font-serif italic text-2xl text-gold/60 mb-12">Limited sessions available for Season 01.</p>
+      <a href="#" class="inline-block border-2 border-gold text-gold font-bebas text-3xl px-16 py-6 hover:bg-gold hover:text-obsidian transition-all tracking-widest">
+        SECURE YOUR SPOT
       </a>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- FOOTER — Minimalista y premium -->
-  <!-- ============================================ -->
-  <footer id="contacto" class="border-t border-gris-800 py-12 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-        <!-- Logo -->
-        <div>
-          <span class="font-bebas text-2xl tracking-wider">
-            <span class="text-rojo">57</span>ROOMS
-          </span>
-          <p class="text-gris-400 text-xs mt-1 tracking-wider">ESCAPE ROOM EXPERIENCE</p>
-        </div>
-
-        <!-- Links -->
-        <div class="flex items-center gap-6 text-sm text-gris-400">
-          <a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
-          <a href="#" class="hover:text-white transition-colors">Privacidad</a>
-          <a href="#" class="hover:text-white transition-colors">FAQ</a>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="flex items-center gap-4">
-          <a href="#" class="text-gris-400 hover:text-rojo transition-colors">
-            <i data-lucide="instagram" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="text-gris-400 hover:text-rojo transition-colors">
-            <i data-lucide="facebook" class="w-5 h-5"></i>
-          </a>
-          <a href="#" class="text-gris-400 hover:text-rojo transition-colors">
-            <i data-lucide="youtube" class="w-5 h-5"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="text-center text-gris-700 text-xs mt-8">
-        &copy; 2025 57Rooms. Todos los derechos reservados.
-      </div>
+  <!-- FOOTER -->
+  <footer class="py-20 px-8 text-center text-gold/40">
+    <div class="mb-10 flex justify-center gap-12 font-bebas text-sm tracking-widest">
+      <a href="#" class="hover:text-gold transition-colors">INSTAGRAM</a>
+      <a href="#" class="hover:text-gold transition-colors">TWITTER</a>
+      <a href="#" class="hover:text-gold transition-colors">YOUTUBE</a>
     </div>
+    <p class="text-xs tracking-[0.3em] font-bebas mb-2">57 ROOMS • PREMIUM ESCAPE EXPERIENCE</p>
+    <p class="text-[10px]">&copy; 2026 PROYECTO KANE. ALL RIGHTS RESERVED.</p>
   </footer>
 
-  <!-- ============================================ -->
-  <!-- SCRIPTS -->
-  <!-- ============================================ -->
   <script>
-    // Inicializar iconos Lucide
     lucide.createIcons();
-
-    // Navbar: oscurecer al hacer scroll
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('bg-negro/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-negro/50');
-      } else {
-        navbar.classList.remove('bg-negro/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-negro/50');
-      }
-    });
-
-    // Menú móvil: toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Cerrar menú móvil al hacer clic en un link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-
-    // Línea roja del logo (animación al cargar)
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.logo-line').forEach(el => el.classList.add('active'));
-    });
-
-    // Scroll suave para anclas
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
   </script>
-
 </body>
 </html>
