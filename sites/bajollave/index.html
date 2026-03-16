@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bajo Llave - Escape Room</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #0b0f14;
+      color: #e8e0d4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(45, 80, 120, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 60%, rgba(100, 60, 30, 0.15) 0%, transparent 60%),
+        #0b0f14;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .key-icon {
+      width: 60px;
+      margin: 0 auto 2rem;
+    }
+
+    .key-icon svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .logo {
+      font-size: clamp(3.5rem, 11vw, 7rem);
+      font-weight: bold;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo .bajo {
+      display: block;
+      font-size: 0.45em;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #7a8a9a;
+    }
+
+    .logo .llave {
+      color: #c9a84c;
+    }
+
+    .tagline {
+      font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #6a7a8a;
+      margin-bottom: 3rem;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 1rem 3rem;
+      border: 1px solid #c9a84c;
+      color: #c9a84c;
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .cta:hover {
+      background: #c9a84c;
+      color: #0b0f14;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="content">
+    <div class="key-icon">
+      <svg viewBox="0 0 60 100" fill="none" stroke="#c9a84c" stroke-width="2">
+        <circle cx="30" cy="22" r="18"/>
+        <circle cx="30" cy="22" r="8"/>
+        <line x1="30" y1="40" x2="30" y2="90"/>
+        <line x1="30" y1="65" x2="42" y2="65"/>
+        <line x1="30" y1="78" x2="40" y2="78"/>
+      </svg>
+    </div>
+    <div class="logo">
+      <span class="bajo">Bajo</span>
+      <span class="llave">Llave</span>
+    </div>
+    <p class="tagline">Escape Room Experience</p>
+    <a href="#" class="cta">Proximamente</a>
+  </div>
+</body>
+</html>
