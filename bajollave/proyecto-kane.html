@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expediente 01: Proyecto Kane | Bajo Llave</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgDeep: '#0b0f12',
+            bgSurface: '#12181d',
+            brass: '#c2a67a',
+            brassHover: '#d4bb92',
+            textLight: '#e4e7eb',
+            textDim: '#8b97a3',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Lato', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'], /* Para toques de 'máquina de escribir' o expediente */
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #0b0f12; color: #e4e7eb; }
+    
+    .btn-solid {
+      display: inline-block;
+      background: #c2a67a;
+      color: #0b0f12;
+      padding: 1rem 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.85rem;
+      transition: all 0.4s ease;
+      border: 1px solid #c2a67a;
+      font-family: 'Lato', sans-serif;
+    }
+    .btn-solid:hover {
+      background: #d4bb92;
+      border-color: #d4bb92;
+      transform: translateY(-2px);
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(194, 166, 122, 0.3), transparent);
+      margin: 2rem 0;
+    }
+
+    /* Efecto de documento clasificado */
+    .dossier-box {
+      background-color: rgba(18, 24, 29, 0.6);
+      border: 1px solid rgba(194, 166, 122, 0.15);
+      border-top: 3px solid #c2a67a;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-brass selection:text-bgDeep">
+
+  <!-- NAVBAR -->
+  <nav class="w-full z-50 py-6 px-8 md:px-16 border-b border-white/5 bg-bgDeep">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3 text-white/70 hover:text-brass transition-colors">
+        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        <span class="font-sans text-xs tracking-[0.2em] uppercase">Volver al Archivo</span>
+      </a>
+      
+      <div class="text-lg font-serif tracking-[0.2em] uppercase text-white opacity-50 hidden sm:block">
+        Bajo<span class="text-brass ml-1">Llave</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT WRAPPER -->
+  <main class="max-w-7xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 lg:grid-cols-12 gap-16">
+    
+    <!-- LEFT: THE DOSSIER (STORY) -->
+    <article class="lg:col-span-8">
+      
+      <header class="mb-12">
+        <div class="font-mono text-brass text-xs tracking-widest uppercase mb-6 flex items-center gap-4">
+          <span>Clasificación: Nivel 3</span>
+          <span class="w-12 h-[1px] bg-brass/30"></span>
+          <span>Instalación: Sitio-7</span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-serif font-bold leading-none mb-6">Proyecto Kane</h1>
+        <p class="font-serif italic text-2xl text-textDim">"La consciencia no reside en el cerebro; es una señal que recibimos."</p>
+      </header>
+
+      <!-- Main Image Widescreen -->
+      <div class="w-full aspect-[21/9] mb-12 overflow-hidden border border-white/5">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Sitio-7" class="w-full h-full object-cover grayscale opacity-70">
+      </div>
+
+      <div class="prose prose-invert max-w-none font-light text-lg leading-loose text-textLight">
+        <p>
+          <span class="text-3xl font-serif text-brass float-left mr-2 mt-1 leading-none">E</span>l conglomerado tecnológico Vertex ha mantenido en secreto una división dedicada a investigar la consciencia como un fenómeno dimensional. El Dr. Thomas Kane, director del Sitio-7, formuló una hipótesis que desafiaba la biología moderna.
+        </p>
+        <p>
+          Hace dos años, Kane construyó un dispositivo de resonancia dimensional en el subsuelo. Su objetivo no era simular una inteligencia artificial, sino extraer una consciencia pura de un plano paralelo. Y lo logró. Capturó a una entidad que los registros internos denominan "La Presencia".
+        </p>
+        
+        <div class="divider"></div>
+        
+        <h3 class="font-serif text-2xl mb-4 text-white">El Incidente del Día 42</h3>
+        <p>
+          La Presencia no es un espíritu. Es un depredador electromagnético. Se alimenta de la energía bioeléctrica humana, fortaleciéndose con la mera proximidad de personal vivo. El Día 42 de contención, la entidad comenzó a manipular los sistemas del laboratorio: luces, cerraduras electrónicas y radios.
+        </p>
+        <p>
+          Actualmente, el Sitio-7 está bajo protocolo de aislamiento total. Nadie ha entrado o salido en 11 días. Las grabaciones de audio sugieren que La Presencia ha roto parcialmente su cubo de contención.
+        </p>
+      </div>
+
+      <div class="mt-16 p-8 bg-black/40 border border-red-900/30 border-l-4 border-l-red-800">
+        <h4 class="font-mono text-red-500 tracking-widest uppercase text-sm mb-4">Directiva de Extracción</h4>
+        <p class="font-light text-textDim text-sm">
+          Su equipo ingresará al Sitio-7 a través del Puesto de Control. Deberán triangular la firma electromagnética, acceder al núcleo del Nivel 3 y reactivar la contención primaria en circuito cerrado. Todo sistema electrónico en la instalación es susceptible de ser manipulado por el objetivo. Actúen con cautela.
+        </p>
+      </div>
+
+    </article>
+
+    <!-- RIGHT: METADATA & BOOKING (Editorial Sidebar) -->
+    <aside class="lg:col-span-4">
+      <div class="sticky top-10 dossier-box p-8 lg:p-10">
+        
+        <div class="text-center mb-8">
+          <i data-lucide="fingerprint" class="w-12 h-12 text-brass mx-auto mb-4 opacity-50"></i>
+          <h2 class="font-serif text-3xl">Parámetros de Misión</h2>
+        </div>
+
+        <ul class="space-y-6 font-sans text-sm tracking-wide mb-10">
+          <li class="flex flex-col border-b border-white/5 pb-4">
+            <span class="text-textDim text-xs uppercase mb-1">Capacidad Operativa</span>
+            <span class="text-white text-lg">2 - 5 Investigadores</span>
+          </li>
+          <li class="flex flex-col border-b border-white/5 pb-4">
+            <span class="text-textDim text-xs uppercase mb-1">Ventana Crítica (Tiempo)</span>
+            <span class="text-white text-lg">60 Minutos Exactos</span>
+          </li>
+          <li class="flex flex-col border-b border-white/5 pb-4">
+            <span class="text-textDim text-xs uppercase mb-1">Clasificación por Edad</span>
+            <span class="text-white text-lg">Exclusivo +16 años</span>
+          </li>
+          <li class="flex flex-col">
+            <span class="text-textDim text-xs uppercase mb-2">Nivel de Complejidad</span>
+            <div class="flex items-center gap-3">
+              <span class="text-brass font-bold uppercase">Desafiante</span>
+              <div class="flex gap-1">
+                <div class="w-2 h-2 rounded-full bg-brass"></div>
+                <div class="w-2 h-2 rounded-full bg-brass"></div>
+                <div class="w-2 h-2 rounded-full bg-brass"></div>
+                <div class="w-2 h-2 rounded-full bg-brass"></div>
+                <div class="w-2 h-2 rounded-full border border-brass"></div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <a href="#" class="btn-solid w-full text-center block mb-4">Solicitar Autorización (Reservar)</a>
+        <p class="text-center text-xs text-textDim font-mono">El pago se realiza en la instalación.</p>
+
+      </div>
+    </aside>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
