@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bajo Llave | Inmersión Cinematográfica</title>
+  <title>Bajo Llave | El Escape Room Más Inmersivo</title>
 
-  <!-- Google Fonts: Playfair Display (Headers) & Lato (Body) -->
+  <!-- Google Fonts: Cinzel (Epic Headers) & Montserrat (Commercial Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -20,16 +20,14 @@
       theme: {
         extend: {
           colors: {
-            bgDeep: '#0b0f12', /* Azul pizarra ultra oscuro */
-            bgSurface: '#12181d',
-            brass: '#c2a67a', /* Dorado envejecido / Latón */
-            brassHover: '#d4bb92',
-            textLight: '#e4e7eb',
-            textDim: '#8b97a3',
+            brandDark: '#050b14', /* Deep cinematic blue/black */
+            brandCard: '#0a1526',
+            brandAccent: '#f5a623', /* Blockbuster Amber/Gold */
+            brandAccentHover: '#ffba49',
           },
           fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Lato', 'sans-serif'],
+            epic: ['Cinzel', 'serif'],
+            body: ['Montserrat', 'sans-serif'],
           }
         }
       }
@@ -37,210 +35,329 @@
   </script>
 
   <style>
-    body { background-color: #0b0f12; color: #e4e7eb; }
-    
-    /* Efecto Viñeta Cinematográfica */
-    .vignette {
+    body { background-color: #050b14; color: #ffffff; }
+
+    /* Efectos de luz cinematográfica */
+    .epic-glow {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      box-shadow: inset 0 0 150px rgba(11, 15, 18, 0.9);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, rgba(5, 11, 20, 0) 70%);
       pointer-events: none;
+      z-index: 0;
     }
 
-    /* Botón elegante */
-    .btn-elegant {
-      display: inline-block;
-      border: 1px solid #c2a67a;
-      color: #c2a67a;
-      padding: 1rem 2.5rem;
+    /* Botones altamente comerciales */
+    .btn-massive {
+      background: linear-gradient(to bottom, #f5a623, #d48806);
+      color: #050b14;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 0.85rem;
-      transition: all 0.4s ease;
-      background: transparent;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 0 #a36600, 0 10px 20px rgba(245, 166, 35, 0.4);
+      transition: all 0.1s ease;
     }
-    .btn-elegant:hover {
-      background: #c2a67a;
-      color: #0b0f12;
+    .btn-massive:active {
+      transform: translateY(4px);
+      box-shadow: 0 0px 0 #a36600, 0 5px 10px rgba(245, 166, 35, 0.4);
     }
-
-    .btn-solid {
-      display: inline-block;
-      background: #c2a67a;
-      color: #0b0f12;
-      padding: 1rem 2.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 0.85rem;
-      transition: all 0.4s ease;
-      border: 1px solid #c2a67a;
-    }
-    .btn-solid:hover {
-      background: #d4bb92;
-      border-color: #d4bb92;
-      transform: translateY(-2px);
+    .btn-massive:hover {
+      filter: brightness(1.1);
     }
 
-    /* Línea divisoria */
-    .divider {
-      width: 1px;
-      height: 60px;
-      background-color: #c2a67a;
-      opacity: 0.3;
-      margin: 0 auto;
-    }
-
-    /* Imagen con zoom sutil */
-    .img-hover-zoom {
+    /* Tarjetas de Sala "DVD Cover" */
+    .room-card {
+      background: #0a1526;
+      border: 2px solid #1a2a40;
+      border-radius: 12px;
       overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
-    .img-hover-zoom img {
-      transition: transform 1.2s ease;
+    .room-card:hover {
+      transform: translateY(-8px);
+      border-color: #f5a623;
+      box-shadow: 0 20px 40px rgba(245, 166, 35, 0.2);
     }
-    .img-hover-zoom:hover img {
-      transform: scale(1.05);
+
+    .room-image-container {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+      border-bottom: 4px solid #f5a623;
+    }
+    .room-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .room-card:hover .room-image {
+      transform: scale(1.08);
+    }
+    
+    /* Texturas */
+    .texture-bg {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
   </style>
 </head>
-<body class="font-sans antialiased selection:bg-brass selection:text-bgDeep">
+<body class="font-body antialiased texture-bg selection:bg-brandAccent selection:text-brandDark">
 
-  <!-- NAVBAR -->
-  <nav class="fixed w-full z-50 transition-all duration-500 py-6 px-8 md:px-16 mix-blend-difference">
+  <!-- NAVBAR COMERCIAL -->
+  <nav class="fixed w-full z-50 bg-brandDark/95 backdrop-blur-md border-b border-brandAccent/20 py-3 px-6 shadow-xl">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="/" class="text-xl font-serif font-bold tracking-[0.2em] uppercase text-white">
-        Bajo<span class="text-brass ml-2">Llave</span>
+      
+      <!-- LOGO -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-brandAccent group-hover:drop-shadow-[0_0_8px_rgba(245,166,35,0.8)] transition-all">
+          <path d="M12 2C8.13 2 5 5.13 5 9C5 11.38 6.19 13.47 8 14.74V22H16V14.74C17.81 13.47 19 11.38 19 9C19 5.13 15.87 2 12 2ZM12 11C10.9 11 10 10.1 10 9C10 7.9 10.9 7 12 7C13.1 7 14 7.9 14 9C14 10.1 13.1 11 12 11ZM14 20H10V18H14V20ZM14 16H10V15H14V16Z" fill="currentColor"/>
+        </svg>
+        <div class="flex flex-col">
+          <span class="font-epic text-2xl leading-none font-bold tracking-wider">BAJO LLAVE</span>
+          <span class="text-[0.6rem] font-body text-brandAccent font-bold uppercase tracking-widest leading-none">Escape Room</span>
+        </div>
       </a>
       
-      <div class="hidden md:flex items-center gap-10 font-sans text-xs tracking-[0.15em] uppercase text-white/80">
-        <a href="#expedientes" class="hover:text-brass transition-colors">Expedientes</a>
-        <a href="#filosofia" class="hover:text-brass transition-colors">Nuestra Filosofía</a>
-        <a href="#reservas" class="hover:text-brass transition-colors">Reservas</a>
+      <div class="hidden md:flex items-center gap-8 font-bold text-sm">
+        <a href="#experiencia" class="hover:text-brandAccent transition-colors uppercase">¿Qué es?</a>
+        <a href="#salas" class="hover:text-brandAccent transition-colors uppercase">Nuestras Salas</a>
+        <a href="#salas" class="bg-brandAccent text-brandDark px-6 py-2 rounded font-black uppercase hover:bg-white transition-colors">Reservar</a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <section class="relative h-screen flex flex-col justify-center items-center text-center">
+  <!-- HERO EPIC BLOCKBUSTER -->
+  <section class="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
+    <!-- Fondos -->
     <div class="absolute inset-0 z-0">
-      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1920" alt="Atmósfera Bajo Llave" class="w-full h-full object-cover opacity-40">
-      <div class="absolute inset-0 bg-gradient-to-b from-bgDeep/40 via-transparent to-bgDeep"></div>
-      <div class="vignette"></div>
-    </div>
-
-    <div class="relative z-10 max-w-4xl px-6 mt-20">
-      <p class="font-sans text-brass text-sm tracking-[0.3em] uppercase mb-6">Inmersión Realista</p>
-      <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight mb-8 drop-shadow-2xl">
-        EL SECRETO ESTÁ <br>
-        <span class="italic font-normal text-brass">esperando</span>
-      </h1>
-      <p class="text-lg md:text-xl text-textDim font-light mb-12 max-w-2xl mx-auto leading-relaxed">
-        Adéntrate en historias diseñadas con rigor cinematográfico. No busques candados; busca la verdad.
-      </p>
-      <a href="#expedientes" class="btn-elegant">Abrir los Archivos</a>
+      <img src="https://images.unsplash.com/photo-1578269174936-2709b6aeb913?auto=format&fit=crop&q=80&w=1920" alt="Escape Room Hero" class="w-full h-full object-cover opacity-50">
+      <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-brandDark/60 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-brandDark via-transparent to-transparent"></div>
     </div>
     
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
-      <span class="text-xs tracking-[0.2em] uppercase font-serif">Descubrir</span>
-      <div class="w-[1px] h-12 bg-white"></div>
-    </div>
-  </section>
+    <div class="epic-glow top-0 left-0"></div>
 
-  <!-- FILOSOFÍA -->
-  <section id="filosofia" class="py-24 md:py-32 px-6 bg-bgDeep relative">
-    <div class="max-w-4xl mx-auto text-center">
-      <i data-lucide="key" class="w-8 h-8 text-brass mx-auto mb-8 opacity-70"></i>
-      <h2 class="text-3xl md:text-5xl font-serif mb-8 leading-tight">La realidad es el mejor escenario.</h2>
-      <p class="text-textDim text-lg md:text-xl leading-relaxed font-light">
-        En Bajo Llave construimos mundos tangibles. Olvida los juegos de lógica abstracta. Aquí interactúas con sistemas reales, deduces a partir de documentos auténticos y te enfrentas a situaciones donde la psicología y el instinto son tus únicas herramientas.
-      </p>
-    </div>
-  </section>
-
-  <!-- EXPEDIENTES (Rooms Layout Editorial) -->
-  <section id="expedientes" class="py-20 px-6 md:px-12 bg-bgSurface">
-    <div class="max-w-7xl mx-auto">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-between gap-12">
+      <div class="max-w-2xl text-center md:text-left">
+        <div class="inline-block bg-brandAccent/20 border-2 border-brandAccent text-brandAccent font-black px-4 py-1 rounded uppercase text-sm mb-6 shadow-[0_0_15px_rgba(245,166,35,0.4)]">
+          El Escape Room #1 de la Ciudad
+        </div>
+        <h1 class="font-epic text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-6 text-white drop-shadow-2xl">
+          SÉ EL HÉROE DE TU <span class="text-brandAccent">PROPIA PELÍCULA</span>
+        </h1>
+        <p class="font-body text-lg md:text-xl text-gray-300 font-semibold mb-10">
+          60 minutos para resolver el misterio, trabajar en equipo y escapar. Escenarios de película, efectos especiales y adrenalina pura. ¿Aceptas el reto?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
+          <a href="#salas" class="btn-massive px-10 py-5 rounded-lg text-lg text-center flex items-center justify-center gap-3">
+            <i data-lucide="ticket" class="w-6 h-6"></i>
+            VER SALAS Y RESERVAR
+          </a>
+        </div>
+      </div>
       
-      <div class="mb-20">
-        <span class="text-brass text-xs tracking-[0.2em] uppercase">Catálogo Principal</span>
-        <h2 class="text-4xl md:text-6xl font-serif mt-2">Expedientes Activos</h2>
-      </div>
-
-      <!-- ROOM: PROYECTO KANE -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-16 items-center mb-32">
-        <!-- Imagen (Widescreen Cinema) -->
-        <div class="lg:col-span-8 img-hover-zoom aspect-[16/9] lg:aspect-[21/9] relative">
-          <div class="absolute inset-0 bg-bgDeep/20 z-10 transition-opacity hover:opacity-0"></div>
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Proyecto Kane" class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-700">
-        </div>
-        
-        <!-- Contenido Editorial -->
-        <div class="lg:col-span-4 mt-8 lg:mt-0 relative z-20 lg:-ml-16 lg:bg-bgDeep lg:p-10 shadow-2xl">
-          <div class="text-brass text-xs tracking-[0.2em] mb-4 uppercase">Expediente 01</div>
-          <h3 class="text-4xl md:text-5xl font-serif mb-4">Proyecto Kane</h3>
-          <p class="text-textDim text-sm leading-relaxed mb-8">
-            El laboratorio Sitio-7 ha cortado comunicaciones. El Dr. Thomas Kane está desaparecido. Tu equipo debe ingresar, restablecer los sistemas y evitar que la entidad contenida escape al plano físico. Un thriller de ciencia ficción y terror psicológico.
-          </p>
-          
-          <div class="flex flex-col gap-3 mb-8 text-sm text-textLight font-light tracking-wide border-l border-brass/30 pl-4">
-            <div><strong class="text-brass font-normal">Formato:</strong> 60 Minutos</div>
-            <div><strong class="text-brass font-normal">Capacidad:</strong> 2 a 5 Investigadores</div>
-            <div><strong class="text-brass font-normal">Perfil:</strong> Tensión / Terror / Tecnológico</div>
+      <!-- Social Proof Badge prominently displayed in Hero -->
+      <div class="hidden lg:flex flex-col gap-4 animate-bounce" style="animation-duration: 3s;">
+        <div class="bg-brandCard/90 backdrop-blur-sm border border-brandAccent/50 p-6 rounded-xl shadow-2xl text-center max-w-xs transform rotate-3">
+          <div class="flex justify-center gap-1 mb-2">
+            <i data-lucide="star" class="w-6 h-6 fill-brandAccent text-brandAccent"></i>
+            <i data-lucide="star" class="w-6 h-6 fill-brandAccent text-brandAccent"></i>
+            <i data-lucide="star" class="w-6 h-6 fill-brandAccent text-brandAccent"></i>
+            <i data-lucide="star" class="w-6 h-6 fill-brandAccent text-brandAccent"></i>
+            <i data-lucide="star" class="w-6 h-6 fill-brandAccent text-brandAccent"></i>
           </div>
-          
-          <a href="proyecto-kane.html" class="btn-solid w-full text-center">Leer Informe Completo</a>
+          <p class="font-body font-black text-xl mb-1">"Una experiencia brutal"</p>
+          <p class="text-xs text-gray-400 uppercase font-bold">Más de 5,000 escapistas felices</p>
         </div>
       </div>
-
-      <!-- ROOM: EL ÚLTIMO TESTAMENTO (Ejemplo de otra sala) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-16 items-center flex-col-reverse lg:flex-row-reverse">
-        
-        <!-- Contenido Editorial -->
-        <div class="lg:col-span-4 mt-8 lg:mt-0 relative z-20 lg:-mr-16 lg:bg-bgDeep lg:p-10 shadow-2xl order-2 lg:order-1">
-          <div class="text-brass text-xs tracking-[0.2em] mb-4 uppercase">Expediente 02</div>
-          <h3 class="text-4xl md:text-5xl font-serif mb-4">La Herencia</h3>
-          <p class="text-textDim text-sm leading-relaxed mb-8">
-            Un magnate ha fallecido en circunstancias inexplicables. Su despacho contiene la única copia de su testamento verdadero, oculta tras una red de secretos familiares. Tienen una hora antes de que llegue la policía judicial.
-          </p>
-          
-          <div class="flex flex-col gap-3 mb-8 text-sm text-textLight font-light tracking-wide border-l border-brass/30 pl-4">
-            <div><strong class="text-brass font-normal">Formato:</strong> 60 Minutos</div>
-            <div><strong class="text-brass font-normal">Capacidad:</strong> 2 a 6 Investigadores</div>
-            <div><strong class="text-brass font-normal">Perfil:</strong> Misterio Clásico / Deducción</div>
-          </div>
-          
-          <a href="#" class="btn-solid w-full text-center">Leer Informe Completo</a>
-        </div>
-
-        <!-- Imagen (Widescreen Cinema) -->
-        <div class="lg:col-span-8 img-hover-zoom aspect-[16/9] lg:aspect-[21/9] relative order-1 lg:order-2">
-          <div class="absolute inset-0 bg-bgDeep/20 z-10 transition-opacity hover:opacity-0"></div>
-          <img src="https://images.unsplash.com/photo-1505664177941-2a8286a1112b?auto=format&fit=crop&q=80&w=1920" alt="La Herencia Despacho" class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-700">
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- CTA FINAL -->
-  <section class="py-32 relative text-center">
-    <div class="divider mb-12"></div>
-    <h2 class="text-4xl md:text-6xl font-serif mb-6">El tiempo corre.</h2>
-    <p class="text-textDim mb-12 font-light">Las sesiones son privadas y de cupo estricto.</p>
-    <a href="#" class="btn-elegant">Agendar Sesión</a>
+  <!-- VALOR COMERCIAL: ¿QUÉ ES? -->
+  <section id="experiencia" class="py-20 bg-brandDark border-t border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="font-epic text-4xl md:text-5xl font-black mb-4">MÁS QUE UN JUEGO</h2>
+        <p class="font-body text-gray-400 max-w-2xl mx-auto text-lg">Reúne a tus amigos, familia o compañeros de trabajo. Un Escape Room es la actividad de ocio perfecta para desconectar del mundo real.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="bg-brandCard p-8 rounded-xl border border-gray-800 text-center hover:border-brandAccent transition-colors">
+          <div class="w-20 h-20 mx-auto bg-brandDark rounded-full border-2 border-brandAccent flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(245,166,35,0.2)]">
+            <i data-lucide="brain" class="w-10 h-10 text-brandAccent"></i>
+          </div>
+          <h3 class="font-epic text-2xl font-bold mb-3">RETO MENTAL</h3>
+          <p class="font-body text-gray-400">Puzzles lógicos, candados tecnológicos y enigmas ocultos. Usa tu ingenio para avanzar antes de que el reloj llegue a cero.</p>
+        </div>
+        
+        <div class="bg-brandCard p-8 rounded-xl border border-gray-800 text-center hover:border-brandAccent transition-colors">
+          <div class="w-20 h-20 mx-auto bg-brandDark rounded-full border-2 border-brandAccent flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(245,166,35,0.2)]">
+            <i data-lucide="users" class="w-10 h-10 text-brandAccent"></i>
+          </div>
+          <h3 class="font-epic text-2xl font-bold mb-3">TRABAJO EN EQUIPO</h3>
+          <p class="font-body text-gray-400">Nadie escapa solo. La comunicación es clave. Excelente para fortalecer lazos con amigos o realizar dinámicas de Teambuilding.</p>
+        </div>
+
+        <div class="bg-brandCard p-8 rounded-xl border border-gray-800 text-center hover:border-brandAccent transition-colors">
+          <div class="w-20 h-20 mx-auto bg-brandDark rounded-full border-2 border-brandAccent flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(245,166,35,0.2)]">
+            <i data-lucide="clapperboard" class="w-10 h-10 text-brandAccent"></i>
+          </div>
+          <h3 class="font-epic text-2xl font-bold mb-3">INMERSIÓN TOTAL</h3>
+          <p class="font-body text-gray-400">Escenarios construidos por profesionales del cine. Efectos de sonido, luces automatizadas y una historia que te atrapará.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTELERA DE SALAS (Blockbuster Style) -->
+  <section id="salas" class="py-24 relative overflow-hidden">
+    <div class="epic-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px]"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-800 pb-6">
+        <div>
+          <h2 class="font-epic text-5xl md:text-6xl font-black">NUESTRAS MISIONES</h2>
+          <p class="font-body text-brandAccent font-bold text-xl mt-2 uppercase tracking-wide">Elige tu aventura. Compra tus entradas.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        
+        <!-- ROOM 1: PROYECTO KANE -->
+        <div class="room-card flex flex-col relative">
+          <!-- Etiqueta de Venta -->
+          <div class="absolute top-4 left-0 bg-red-600 text-white font-black px-4 py-2 uppercase tracking-widest z-20 text-sm shadow-lg border-y border-r border-red-400 rounded-r-lg">
+            Thriller / Sci-Fi
+          </div>
+          
+          <div class="room-image-container">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Proyecto Kane" class="room-image">
+          </div>
+          
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="font-epic text-3xl font-black mb-3">PROYECTO KANE</h3>
+            <p class="font-body text-gray-400 mb-6 flex-grow">
+              El laboratorio Sitio-7 ha caído. El Dr. Kane ha desaparecido y una consciencia depredadora merodea por los pasillos. Entra, reinicia la contención y sobrevive.
+            </p>
+            
+            <div class="flex justify-between items-center bg-brandDark p-4 rounded-lg border border-gray-800 mb-6">
+              <div class="text-center">
+                <i data-lucide="users" class="w-5 h-5 text-brandAccent mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body">2-5</span>
+              </div>
+              <div class="w-px h-8 bg-gray-800"></div>
+              <div class="text-center">
+                <i data-lucide="clock" class="w-5 h-5 text-brandAccent mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body">60m</span>
+              </div>
+              <div class="w-px h-8 bg-gray-800"></div>
+              <div class="text-center">
+                <i data-lucide="flame" class="w-5 h-5 text-red-500 mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body text-xs">DIFÍCIL</span>
+              </div>
+            </div>
+            
+            <a href="proyecto-kane.html" class="btn-massive w-full py-4 rounded text-center text-lg">MÁS INFO Y RESERVAS</a>
+          </div>
+        </div>
+
+        <!-- ROOM 2: EL TESORO PERDIDO -->
+        <div class="room-card flex flex-col relative">
+          <div class="absolute top-4 left-0 bg-green-600 text-white font-black px-4 py-2 uppercase tracking-widest z-20 text-sm shadow-lg border-y border-r border-green-400 rounded-r-lg">
+            Aventura / Familia
+          </div>
+          <div class="room-image-container">
+            <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=800" alt="La Tumba de Amón" class="room-image">
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="font-epic text-3xl font-black mb-3">EL TEMPLO DE AMÓN</h3>
+            <p class="font-body text-gray-400 mb-6 flex-grow">
+              Su expedición arqueológica ha quedado atrapada en una pirámide inexplorada. El oxígeno se agota. Resuelvan los enigmas de los faraones antes de quedar sepultados para siempre.
+            </p>
+            <div class="flex justify-between items-center bg-brandDark p-4 rounded-lg border border-gray-800 mb-6">
+              <div class="text-center">
+                <i data-lucide="users" class="w-5 h-5 text-brandAccent mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body">2-8</span>
+              </div>
+              <div class="w-px h-8 bg-gray-800"></div>
+              <div class="text-center">
+                <i data-lucide="clock" class="w-5 h-5 text-brandAccent mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body">60m</span>
+              </div>
+              <div class="w-px h-8 bg-gray-800"></div>
+              <div class="text-center">
+                <i data-lucide="compass" class="w-5 h-5 text-green-500 mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body text-xs">MEDIA</span>
+              </div>
+            </div>
+            <button class="btn-massive w-full py-4 rounded text-center text-lg">RESERVAR AHORA</button>
+          </div>
+        </div>
+
+        <!-- ROOM 3: EL PRISIONERO -->
+        <div class="room-card flex flex-col relative">
+          <div class="absolute top-4 left-0 bg-purple-600 text-white font-black px-4 py-2 uppercase tracking-widest z-20 text-sm shadow-lg border-y border-r border-purple-400 rounded-r-lg">
+            Misterio / Tensión
+          </div>
+          <div class="room-image-container">
+            <img src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&q=80&w=800" alt="La Celda" class="room-image">
+          </div>
+          <div class="p-8 flex flex-col flex-grow">
+            <h3 class="font-epic text-3xl font-black mb-3">FUGA DE ALCATRAZ</h3>
+            <p class="font-body text-gray-400 mb-6 flex-grow">
+              Han sido condenados injustamente. Durante el cambio de guardia nocturno, tienen exactamente una hora para seguir las pistas del preso anterior y escapar del bloque de máxima seguridad.
+            </p>
+            <div class="flex justify-between items-center bg-brandDark p-4 rounded-lg border border-gray-800 mb-6">
+              <div class="text-center">
+                <i data-lucide="users" class="w-5 h-5 text-brandAccent mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body">2-6</span>
+              </div>
+              <div class="w-px h-8 bg-gray-800"></div>
+              <div class="text-center">
+                <i data-lucide="clock" class="w-5 h-5 text-brandAccent mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body">60m</span>
+              </div>
+              <div class="w-px h-8 bg-gray-800"></div>
+              <div class="text-center">
+                <i data-lucide="lock" class="w-5 h-5 text-purple-500 mx-auto mb-1"></i>
+                <span class="block text-white font-bold font-body text-xs">ALTA</span>
+              </div>
+            </div>
+            <button class="btn-massive w-full py-4 rounded text-center text-lg">RESERVAR AHORA</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER FINAL CALL TO ACTION -->
+  <section class="py-20 bg-brandAccent relative overflow-hidden text-brandDark">
+    <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, #0a1526 25%, #0a1526 75%, #000 75%, #000); background-position: 0 0, 10px 10px; background-size: 20px 20px;"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <h2 class="font-epic text-5xl md:text-6xl font-black mb-6">¿LISTO PARA EL DESAFÍO?</h2>
+      <p class="font-body text-xl font-bold mb-10">Reúne a tu equipo. Las reservas se agotan rápido los fines de semana.</p>
+      <a href="#salas" class="inline-block bg-brandDark text-white font-body font-black text-2xl uppercase tracking-wider px-16 py-6 rounded-xl hover:bg-white hover:text-brandDark transition-colors shadow-2xl border-4 border-brandDark hover:border-white">
+        VER DISPONIBILIDAD
+      </a>
+    </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[#070a0c] border-t border-white/5 py-16 px-8">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-      <div class="text-xl font-serif tracking-[0.2em] uppercase text-white/50">
-        Bajo<span class="text-brass/50 ml-1">Llave</span>
+  <footer class="bg-[#02050a] py-12 border-t border-gray-900">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-2 text-white">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-brandAccent">
+          <path d="M12 2C8.13 2 5 5.13 5 9C5 11.38 6.19 13.47 8 14.74V22H16V14.74C17.81 13.47 19 11.38 19 9C19 5.13 15.87 2 12 2Z" fill="currentColor"/>
+        </svg>
+        <span class="font-epic font-bold text-xl tracking-wider">BAJO LLAVE</span>
       </div>
-      <div class="flex gap-8 text-xs font-sans tracking-widest text-textDim uppercase">
-        <a href="#" class="hover:text-brass transition-colors">Legal</a>
-        <a href="#" class="hover:text-brass transition-colors">Privacidad</a>
-        <a href="#" class="hover:text-brass transition-colors">Contacto</a>
+      <div class="text-gray-500 font-body text-sm font-semibold">
+        &copy; 2026 Bajo Llave Escape Room. Bogotá, Colombia.
       </div>
-      <p class="text-xs text-textDim/50">&copy; 2026 BAJO LLAVE EXPERIENCES</p>
     </div>
   </footer>
 

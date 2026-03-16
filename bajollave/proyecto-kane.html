@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expediente 01: Proyecto Kane | Bajo Llave</title>
+  <title>Proyecto Kane | Bajo Llave Escape Room</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Cinzel & Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -20,17 +20,14 @@
       theme: {
         extend: {
           colors: {
-            bgDeep: '#0b0f12',
-            bgSurface: '#12181d',
-            brass: '#c2a67a',
-            brassHover: '#d4bb92',
-            textLight: '#e4e7eb',
-            textDim: '#8b97a3',
+            brandDark: '#050b14',
+            brandCard: '#0a1526',
+            brandAccent: '#f5a623',
+            brandAccentHover: '#ffba49',
           },
           fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Lato', 'sans-serif'],
-            mono: ['Space Mono', 'monospace'], /* Para toques de 'máquina de escribir' o expediente */
+            epic: ['Cinzel', 'serif'],
+            body: ['Montserrat', 'sans-serif'],
           }
         }
       }
@@ -38,150 +35,196 @@
   </script>
 
   <style>
-    body { background-color: #0b0f12; color: #e4e7eb; }
-    
-    .btn-solid {
-      display: inline-block;
-      background: #c2a67a;
-      color: #0b0f12;
-      padding: 1rem 2.5rem;
+    body { background-color: #050b14; color: #ffffff; }
+
+    .epic-glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, rgba(5, 11, 20, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .btn-massive {
+      background: linear-gradient(to bottom, #f5a623, #d48806);
+      color: #050b14;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 0.85rem;
-      transition: all 0.4s ease;
-      border: 1px solid #c2a67a;
-      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 0 #a36600, 0 10px 20px rgba(245, 166, 35, 0.4);
+      transition: all 0.1s ease;
     }
-    .btn-solid:hover {
-      background: #d4bb92;
-      border-color: #d4bb92;
-      transform: translateY(-2px);
+    .btn-massive:active {
+      transform: translateY(4px);
+      box-shadow: 0 0px 0 #a36600, 0 5px 10px rgba(245, 166, 35, 0.4);
     }
-
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(194, 166, 122, 0.3), transparent);
-      margin: 2rem 0;
+    .btn-massive:hover {
+      filter: brightness(1.1);
     }
 
-    /* Efecto de documento clasificado */
-    .dossier-box {
-      background-color: rgba(18, 24, 29, 0.6);
-      border: 1px solid rgba(194, 166, 122, 0.15);
-      border-top: 3px solid #c2a67a;
+    .stat-box {
+      background: #0a1526;
+      border: 2px solid #1a2a40;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    .texture-bg {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
   </style>
 </head>
-<body class="font-sans antialiased selection:bg-brass selection:text-bgDeep">
+<body class="font-body antialiased texture-bg selection:bg-brandAccent selection:text-brandDark">
 
-  <!-- NAVBAR -->
-  <nav class="w-full z-50 py-6 px-8 md:px-16 border-b border-white/5 bg-bgDeep">
+  <!-- NAVBAR COMERCIAL -->
+  <nav class="fixed w-full z-50 bg-brandDark/95 backdrop-blur-md border-b border-brandAccent/20 py-3 px-6 shadow-xl">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="flex items-center gap-3 text-white/70 hover:text-brass transition-colors">
-        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        <span class="font-sans text-xs tracking-[0.2em] uppercase">Volver al Archivo</span>
+      <a href="index.html" class="flex items-center gap-3 group text-white hover:text-brandAccent transition-colors">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        <span class="font-body font-bold text-sm tracking-widest uppercase">Volver al Catálogo</span>
       </a>
-      
-      <div class="text-lg font-serif tracking-[0.2em] uppercase text-white opacity-50 hidden sm:block">
-        Bajo<span class="text-brass ml-1">Llave</span>
-      </div>
+      <a href="#reservar" class="bg-brandAccent text-brandDark px-6 py-2 rounded font-black uppercase hover:bg-white transition-colors hidden sm:block">Reservar Sala</a>
     </div>
   </nav>
 
-  <!-- CONTENT WRAPPER -->
-  <main class="max-w-7xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 lg:grid-cols-12 gap-16">
-    
-    <!-- LEFT: THE DOSSIER (STORY) -->
-    <article class="lg:col-span-8">
+  <!-- HERO SALA -->
+  <section class="relative h-[65vh] flex items-end pb-16">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Proyecto Kane Lab" class="w-full h-full object-cover opacity-60">
+      <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-brandDark/50 to-transparent"></div>
+    </div>
+    <div class="epic-glow bottom-0 left-1/4"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-end justify-between gap-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 bg-red-600 text-white font-black px-4 py-1 uppercase tracking-widest text-sm mb-4 rounded-md shadow-[0_0_15px_rgba(220,38,38,0.5)] border border-red-400">
+          <i data-lucide="siren" class="w-4 h-4"></i> Sala de Tensión (Sci-Fi)
+        </div>
+        <h1 class="font-epic text-6xl md:text-8xl font-black leading-none mb-4 text-white drop-shadow-2xl">
+          PROYECTO <span class="text-brandAccent">KANE</span>
+        </h1>
+        <p class="font-body text-xl text-gray-300 font-semibold italic">"El Sitio-7 ha caído. Sobrevivir es la única opción."</p>
+      </div>
       
-      <header class="mb-12">
-        <div class="font-mono text-brass text-xs tracking-widest uppercase mb-6 flex items-center gap-4">
-          <span>Clasificación: Nivel 3</span>
-          <span class="w-12 h-[1px] bg-brass/30"></span>
-          <span>Instalación: Sitio-7</span>
+      <!-- Quick Stats en Hero -->
+      <div class="hidden lg:flex gap-6 bg-brandCard/80 backdrop-blur-md p-4 rounded-xl border border-brandAccent/30 shadow-2xl">
+        <div class="text-center px-4">
+          <i data-lucide="users" class="w-6 h-6 text-brandAccent mx-auto mb-1"></i>
+          <span class="block text-white font-black text-lg">2-5</span>
         </div>
-        <h1 class="text-5xl md:text-7xl font-serif font-bold leading-none mb-6">Proyecto Kane</h1>
-        <p class="font-serif italic text-2xl text-textDim">"La consciencia no reside en el cerebro; es una señal que recibimos."</p>
-      </header>
-
-      <!-- Main Image Widescreen -->
-      <div class="w-full aspect-[21/9] mb-12 overflow-hidden border border-white/5">
-        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Sitio-7" class="w-full h-full object-cover grayscale opacity-70">
+        <div class="w-px bg-brandAccent/30"></div>
+        <div class="text-center px-4">
+          <i data-lucide="clock" class="w-6 h-6 text-brandAccent mx-auto mb-1"></i>
+          <span class="block text-white font-black text-lg">60m</span>
+        </div>
+        <div class="w-px bg-brandAccent/30"></div>
+        <div class="text-center px-4">
+          <i data-lucide="flame" class="w-6 h-6 text-red-500 mx-auto mb-1"></i>
+          <span class="block text-white font-black text-sm mt-1">DIFÍCIL</span>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="prose prose-invert max-w-none font-light text-lg leading-loose text-textLight">
-        <p>
-          <span class="text-3xl font-serif text-brass float-left mr-2 mt-1 leading-none">E</span>l conglomerado tecnológico Vertex ha mantenido en secreto una división dedicada a investigar la consciencia como un fenómeno dimensional. El Dr. Thomas Kane, director del Sitio-7, formuló una hipótesis que desafiaba la biología moderna.
-        </p>
-        <p>
-          Hace dos años, Kane construyó un dispositivo de resonancia dimensional en el subsuelo. Su objetivo no era simular una inteligencia artificial, sino extraer una consciencia pura de un plano paralelo. Y lo logró. Capturó a una entidad que los registros internos denominan "La Presencia".
-        </p>
+  <!-- CONTENIDO: HISTORIA Y RESERVA -->
+  <section class="py-16 bg-brandDark">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-12">
+      
+      <!-- IZQUIERDA: Trama y Detalles -->
+      <div class="lg:col-span-2 space-y-12">
         
-        <div class="divider"></div>
-        
-        <h3 class="font-serif text-2xl mb-4 text-white">El Incidente del Día 42</h3>
-        <p>
-          La Presencia no es un espíritu. Es un depredador electromagnético. Se alimenta de la energía bioeléctrica humana, fortaleciéndose con la mera proximidad de personal vivo. El Día 42 de contención, la entidad comenzó a manipular los sistemas del laboratorio: luces, cerraduras electrónicas y radios.
-        </p>
-        <p>
-          Actualmente, el Sitio-7 está bajo protocolo de aislamiento total. Nadie ha entrado o salido en 11 días. Las grabaciones de audio sugieren que La Presencia ha roto parcialmente su cubo de contención.
-        </p>
-      </div>
-
-      <div class="mt-16 p-8 bg-black/40 border border-red-900/30 border-l-4 border-l-red-800">
-        <h4 class="font-mono text-red-500 tracking-widest uppercase text-sm mb-4">Directiva de Extracción</h4>
-        <p class="font-light text-textDim text-sm">
-          Su equipo ingresará al Sitio-7 a través del Puesto de Control. Deberán triangular la firma electromagnética, acceder al núcleo del Nivel 3 y reactivar la contención primaria en circuito cerrado. Todo sistema electrónico en la instalación es susceptible de ser manipulado por el objetivo. Actúen con cautela.
-        </p>
-      </div>
-
-    </article>
-
-    <!-- RIGHT: METADATA & BOOKING (Editorial Sidebar) -->
-    <aside class="lg:col-span-4">
-      <div class="sticky top-10 dossier-box p-8 lg:p-10">
-        
-        <div class="text-center mb-8">
-          <i data-lucide="fingerprint" class="w-12 h-12 text-brass mx-auto mb-4 opacity-50"></i>
-          <h2 class="font-serif text-3xl">Parámetros de Misión</h2>
+        <div>
+          <h2 class="font-epic text-4xl font-black mb-6 text-brandAccent">LA MISIÓN</h2>
+          <div class="prose prose-invert max-w-none font-body text-gray-300 text-lg leading-relaxed space-y-6">
+            <p>
+              La corporación <strong>Vertex</strong> perdió contacto con su laboratorio subterráneo de máxima seguridad hace 11 días. Su director, el Dr. Thomas Kane, realizaba experimentos ilegales de extracción dimensional. Algo salió muy mal.
+            </p>
+            <p>
+              Lograron traer algo a nuestro mundo. Lo llaman <strong>"La Presencia"</strong>. Es una consciencia depredadora que se alimenta de la energía humana y manipula cualquier dispositivo electrónico a su alcance: luces, puertas, sistemas de sonido... todo es su arma.
+            </p>
+            <p class="text-white font-bold bg-brandCard p-6 rounded-lg border-l-4 border-brandAccent">
+              <i data-lucide="target" class="inline-block text-brandAccent w-6 h-6 mr-2 mb-1"></i>
+              Su objetivo: Infiltrarse en el Sitio-7, llegar al núcleo de contención en el Nivel 3 y reactivar los protocolos de seguridad antes de que la grieta dimensional se abra por completo. Tienen 60 minutos.
+            </p>
+          </div>
         </div>
 
-        <ul class="space-y-6 font-sans text-sm tracking-wide mb-10">
-          <li class="flex flex-col border-b border-white/5 pb-4">
-            <span class="text-textDim text-xs uppercase mb-1">Capacidad Operativa</span>
-            <span class="text-white text-lg">2 - 5 Investigadores</span>
-          </li>
-          <li class="flex flex-col border-b border-white/5 pb-4">
-            <span class="text-textDim text-xs uppercase mb-1">Ventana Crítica (Tiempo)</span>
-            <span class="text-white text-lg">60 Minutos Exactos</span>
-          </li>
-          <li class="flex flex-col border-b border-white/5 pb-4">
-            <span class="text-textDim text-xs uppercase mb-1">Clasificación por Edad</span>
-            <span class="text-white text-lg">Exclusivo +16 años</span>
-          </li>
-          <li class="flex flex-col">
-            <span class="text-textDim text-xs uppercase mb-2">Nivel de Complejidad</span>
-            <div class="flex items-center gap-3">
-              <span class="text-brass font-bold uppercase">Desafiante</span>
-              <div class="flex gap-1">
-                <div class="w-2 h-2 rounded-full bg-brass"></div>
-                <div class="w-2 h-2 rounded-full bg-brass"></div>
-                <div class="w-2 h-2 rounded-full bg-brass"></div>
-                <div class="w-2 h-2 rounded-full bg-brass"></div>
-                <div class="w-2 h-2 rounded-full border border-brass"></div>
+        <div>
+          <h2 class="font-epic text-3xl font-black mb-6">¿POR QUÉ JUGAR ESTA SALA?</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-body">
+            <div class="bg-brandCard p-5 rounded-lg border border-gray-800 flex items-start gap-4">
+              <div class="bg-brandAccent/20 p-2 rounded-lg"><i data-lucide="cpu" class="w-6 h-6 text-brandAccent"></i></div>
+              <div>
+                <h4 class="font-black text-white mb-1">Tecnología Pura</h4>
+                <p class="text-sm text-gray-400">Olvídate de los candados con llave. Todo se resuelve mediante sensores y sistemas interactivos.</p>
               </div>
             </div>
-          </li>
-        </ul>
-
-        <a href="#" class="btn-solid w-full text-center block mb-4">Solicitar Autorización (Reservar)</a>
-        <p class="text-center text-xs text-textDim font-mono">El pago se realiza en la instalación.</p>
-
+            <div class="bg-brandCard p-5 rounded-lg border border-gray-800 flex items-start gap-4">
+              <div class="bg-brandAccent/20 p-2 rounded-lg"><i data-lucide="radio" class="w-6 h-6 text-brandAccent"></i></div>
+              <div>
+                <h4 class="font-black text-white mb-1">Inmersión Absoluta</h4>
+                <p class="text-sm text-gray-400">Efectos especiales de luces y sonido que reaccionan a tus decisiones en tiempo real.</p>
+              </div>
+            </div>
+            <div class="bg-brandCard p-5 rounded-lg border border-gray-800 flex items-start gap-4">
+              <div class="bg-brandAccent/20 p-2 rounded-lg"><i data-lucide="brain-circuit" class="w-6 h-6 text-brandAccent"></i></div>
+              <div>
+                <h4 class="font-black text-white mb-1">Adrenalina</h4>
+                <p class="text-sm text-gray-400">Una historia de thriller psicológico que mantendrá a todo tu equipo en alerta máxima.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </aside>
 
-  </main>
+      <!-- DERECHA: Caja de Reserva Comercial -->
+      <div class="lg:col-span-1" id="reservar">
+        <div class="sticky top-24 stat-box p-8 border-t-4 border-t-brandAccent text-center">
+          <h3 class="font-epic text-3xl font-black mb-2">RESERVA TU SESIÓN</h3>
+          <p class="font-body text-gray-400 text-sm font-semibold mb-8">El pago se realiza en el local. ¡Solo reserva tu hora!</p>
+          
+          <div class="space-y-4 font-body mb-8">
+            <div class="flex justify-between items-center bg-[#050b14] p-3 rounded border border-gray-800">
+              <span class="text-gray-400 font-bold uppercase text-xs">Jugadores</span>
+              <span class="text-white font-black text-lg">2 - 5 Personas</span>
+            </div>
+            <div class="flex justify-between items-center bg-[#050b14] p-3 rounded border border-gray-800">
+              <span class="text-gray-400 font-bold uppercase text-xs">Duración</span>
+              <span class="text-white font-black text-lg">60 Minutos</span>
+            </div>
+            <div class="flex justify-between items-center bg-[#050b14] p-3 rounded border border-gray-800">
+              <span class="text-gray-400 font-bold uppercase text-xs">Edad Mínima</span>
+              <span class="text-white font-black text-lg">+16 Años</span>
+            </div>
+            <div class="flex flex-col bg-[#050b14] p-4 rounded border border-gray-800">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-400 font-bold uppercase text-xs">Dificultad</span>
+                <span class="text-brandAccent font-black text-sm">ALTA (4/5)</span>
+              </div>
+              <div class="flex gap-1">
+                <div class="h-3 flex-1 rounded bg-brandAccent"></div>
+                <div class="h-3 flex-1 rounded bg-brandAccent"></div>
+                <div class="h-3 flex-1 rounded bg-brandAccent"></div>
+                <div class="h-3 flex-1 rounded bg-brandAccent"></div>
+                <div class="h-3 flex-1 rounded bg-gray-800"></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-massive w-full py-5 rounded-lg text-xl mb-4">
+            <i data-lucide="calendar-check" class="inline-block w-6 h-6 mr-2 mb-1"></i> VER HORARIOS
+          </button>
+          
+          <div class="flex items-center justify-center gap-2 text-green-500 font-body text-xs font-bold uppercase">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> Sesión Privada 100% Garantizada
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <script>
     lucide.createIcons();
