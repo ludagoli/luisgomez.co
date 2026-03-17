@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>57 Rooms | Experiencias de Escape Room</title>
 
-  <!-- Google Fonts: Montserrat (Headers) & Inter (Body) -->
+  <!-- Google Fonts: Bebas Neue, Space Mono, DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -20,16 +20,18 @@
       theme: {
         extend: {
           colors: {
-            bgDark: '#0a0a0a',
-            bgCard: '#141414',
-            accent: '#ff4c29', // Naranja/Rojo vibrante estilo 60out/Enigma
-            accentHover: '#e03a1a',
-            textMain: '#ffffff',
-            textMuted: '#9ca3af',
+            bgDark: '#050508',
+            bgCard: '#0D0D18',
+            accentCyan: '#00E5FF',
+            accentRed: '#FF2A2A',
+            textMain: '#F0F0F5',
+            textMuted: '#6A6A7A',
+            accentGold: '#FFB800',
           },
           fontFamily: {
-            heading: ['Montserrat', 'sans-serif'],
-            body: ['Inter', 'sans-serif'],
+            heading: ['Bebas Neue', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+            body: ['DM Sans', 'sans-serif'],
           }
         }
       }
@@ -37,47 +39,54 @@
   </script>
 
   <style>
-    body { background-color: #0a0a0a; color: #ffffff; }
+    body { background-color: #050508; color: #F0F0F5; }
     
-    /* Botón principal estilo "Enigma / 60out" */
-    .btn-primary {
-      background: linear-gradient(135deg, #ff4c29 0%, #e03a1a 100%);
-      color: white;
-      text-transform: uppercase;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 76, 41, 0.3);
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 76, 41, 0.5);
-    }
-
-    .btn-outline {
-      border: 2px solid #ffffff;
-      color: #ffffff;
-      text-transform: uppercase;
+    /* Botón de Reserva (Rojo Alarma) */
+    .btn-red {
+      background-color: #FF2A2A;
+      color: #F0F0F5;
+      font-family: 'Space Mono', monospace;
       font-weight: 700;
+      text-transform: uppercase;
       letter-spacing: 0.05em;
       transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 42, 42, 0.4);
     }
-    .btn-outline:hover {
-      background: #ffffff;
-      color: #0a0a0a;
+    .btn-red:hover {
+      background-color: #e02020;
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(255, 42, 42, 0.6);
     }
 
-    /* Estilos de las tarjetas de sala (Estilo 60out) */
+    /* Botón Secundario (Borde Cian) */
+    .btn-cyan-outline {
+      border: 1px solid #00E5FF;
+      color: #00E5FF;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      background: transparent;
+      box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.1);
+    }
+    .btn-cyan-outline:hover {
+      background: rgba(0, 229, 255, 0.1);
+      box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.3), 0 0 15px rgba(0, 229, 255, 0.2);
+    }
+
+    /* Tarjetas de sala */
     .room-card {
-      background-color: #141414;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
+      background-color: #0D0D18;
+      border: 1px solid #1a1a2e;
+      border-radius: 4px;
       overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: all 0.3s ease;
     }
     .room-card:hover {
+      border-color: #00E5FF;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
       transform: translateY(-5px);
-      border-color: #ff4c29;
     }
     
     .room-image-wrapper {
@@ -85,6 +94,7 @@
       width: 100%;
       height: 280px;
       overflow: hidden;
+      border-bottom: 2px solid #00E5FF;
     }
     
     .room-image {
@@ -92,43 +102,59 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
+      filter: grayscale(30%) contrast(1.2);
     }
     
     .room-card:hover .room-image {
       transform: scale(1.05);
+      filter: grayscale(0%) contrast(1.1);
     }
 
-    .difficulty-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #333;
-    }
-    .difficulty-dot.active { background-color: #ff4c29; }
-    .difficulty-dot.active-high { background-color: #eab308; }
-
-    /* Nav Blur */
     .nav-blur {
-      backdrop-filter: blur(10px);
-      background-color: rgba(10, 10, 10, 0.85);
-      border-bottom: 1px solid #2a2a2a;
+      backdrop-filter: blur(12px);
+      background-color: rgba(5, 5, 8, 0.9);
+      border-bottom: 1px solid #1a1a2e;
+    }
+
+    /* Glow titles */
+    .glow-cyan {
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    }
+    .glow-red {
+      text-shadow: 0 0 10px rgba(255, 42, 42, 0.5);
+    }
+    
+    /* Custom inputs */
+    .input-sci-fi {
+      background: rgba(0, 229, 255, 0.05);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: #00E5FF;
+      font-family: 'Space Mono', monospace;
+    }
+    .input-sci-fi:focus {
+      outline: none;
+      border-color: #00E5FF;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+    }
+    .input-sci-fi::placeholder {
+      color: rgba(0, 229, 255, 0.4);
     }
   </style>
 </head>
-<body class="font-body antialiased">
+<body class="font-body antialiased selection:bg-accentCyan selection:text-bgDark">
 
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 border-b border-transparent">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="/" class="text-2xl font-heading font-black tracking-tighter">
-        57<span class="text-accent">ROOMS</span>
+      <a href="/" class="text-3xl font-heading tracking-wider flex items-center gap-2">
+        <i data-lucide="door-closed" class="w-6 h-6 text-accentCyan"></i>
+        57<span class="text-accentCyan glow-cyan">ROOMS</span>
       </a>
       
-      <div class="hidden md:flex items-center gap-8 font-heading font-bold text-sm tracking-wide">
-        <a href="#salas" class="hover:text-accent transition-colors uppercase">Salas</a>
-        <a href="#eventos" class="hover:text-accent transition-colors uppercase">Eventos Corporativos</a>
-        <a href="#faq" class="hover:text-accent transition-colors uppercase">Preguntas</a>
-        <a href="#salas" class="btn-primary px-6 py-2.5 rounded">Reservar Ahora</a>
+      <div class="hidden md:flex items-center gap-8 font-mono text-xs tracking-widest uppercase">
+        <a href="#salas" class="text-textMain hover:text-accentCyan transition-colors">Operaciones</a>
+        <a href="#protocolo" class="text-textMain hover:text-accentCyan transition-colors">Protocolos</a>
+        <a href="#salas" class="btn-red px-6 py-2.5 rounded-sm">Reservar Sesión</a>
       </div>
     </div>
   </nav>
@@ -136,205 +162,182 @@
   <!-- HERO SECTION -->
   <section class="relative min-h-screen flex items-center pt-20">
     <div class="absolute inset-0 z-0">
-      <!-- Dark overlay for readability -->
-      <div class="absolute inset-0 bg-bgDark/70 z-10"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-transparent to-transparent z-10"></div>
-      <!-- Hero Image -->
-      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1920" alt="Escape Room Background" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-bgDark/80 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-bgDark/50 to-transparent z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-bgDark via-transparent to-transparent z-10"></div>
+      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1920" alt="Escape Room Background" class="w-full h-full object-cover grayscale opacity-50">
     </div>
 
     <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accent/20 border border-accent/50 text-accent font-bold text-xs uppercase tracking-wider mb-6">
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-          Nueva Sala Disponible
+        
+        <div class="inline-flex items-center gap-3 px-4 py-2 bg-accentRed/10 border border-accentRed/30 text-accentRed font-mono font-bold text-xs uppercase tracking-widest mb-6 rounded-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-accentRed animate-pulse shadow-[0_0_8px_#FF2A2A]"></span>
+          SISTEMA DE CONTENCIÓN ACTIVO
         </div>
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black italic uppercase leading-[0.9] tracking-tighter mb-6 shadow-black drop-shadow-lg">
-          ESCAPA DE LA <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-400">RUTINA</span>
+        
+        <h1 class="text-6xl md:text-8xl lg:text-9xl font-heading uppercase leading-[0.9] tracking-normal mb-6 glow-cyan">
+          LA PUERTA SE CIERRA.<br>
+          <span class="text-textMain">EL RELOJ EMPIEZA.</span>
         </h1>
-        <p class="text-lg md:text-xl text-textMuted font-medium mb-10 max-w-xl">
-          Instalaciones de calidad cinematográfica, puzzles de última generación y 57 minutos para lograr lo imposible. ¿Estás listo?
+        
+        <p class="text-lg md:text-xl text-textMuted font-body font-light mb-10 max-w-xl leading-relaxed">
+          <strong class="text-textMain font-normal">57 minutos. Sin salida. Sin señal.</strong> Escenarios de contención nivel cinematográfico en Bucaramanga.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#salas" class="btn-primary px-8 py-4 rounded text-center text-lg">Ver Experiencias</a>
-          <a href="#trailer" class="btn-outline px-8 py-4 rounded text-center text-lg flex items-center justify-center gap-2">
-            <i data-lucide="play-circle" class="w-5 h-5"></i> Ver Trailer
+        
+        <div class="flex flex-col sm:flex-row gap-4 font-mono">
+          <a href="#salas" class="btn-red px-8 py-4 rounded-sm text-center text-sm flex items-center justify-center gap-2">
+            <i data-lucide="lock" class="w-4 h-4"></i> RESERVAR SESIÓN
+          </a>
+          <a href="#salas" class="btn-cyan-outline px-8 py-4 rounded-sm text-center text-sm flex items-center justify-center gap-2">
+            <i data-lucide="eye" class="w-4 h-4"></i> VER PROYECTO KANE
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VALOR COMERCIAL: ¿QUÉ ES? -->
-  <section id="experiencia" class="py-20 bg-[#0d0d0d] border-t border-b border-gray-900">
+  <!-- PROTOCOLO DE INGRESO -->
+  <section id="protocolo" class="py-24 bg-bgCard border-t border-b border-[#1a1a2e]">
     <div class="max-w-7xl mx-auto px-6 md:px-12">
       <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-heading font-black uppercase tracking-tight mb-4">¿Qué es 57Rooms?</h2>
-        <p class="text-textMuted max-w-2xl mx-auto text-lg">Reúne a tus amigos, familia o equipo de trabajo. Tienen exactamente 57 minutos para resolver un misterio en escenarios de película.</p>
+        <h2 class="text-4xl md:text-5xl font-heading text-accentCyan glow-cyan uppercase tracking-wide mb-4">PROTOCOLO DE INGRESO</h2>
+        <p class="text-textMuted max-w-2xl mx-auto text-lg font-light">Procedimientos estándar operativos para todas las instalaciones de 57Rooms.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Tarjeta 1 -->
-        <div class="bg-bgCard p-8 rounded-xl border border-gray-800 text-center hover:border-accent transition-colors group">
-          <div class="w-16 h-16 mx-auto bg-bgDark rounded-full border border-gray-700 flex items-center justify-center mb-6 group-hover:border-accent transition-colors">
-            <i data-lucide="brain" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h3 class="text-xl font-heading font-black uppercase tracking-tight mb-3">Reto Mental</h3>
-          <p class="text-textMuted text-sm leading-relaxed">Puzzles lógicos, candados tecnológicos y enigmas ocultos. Usa tu ingenio para avanzar antes de que el reloj llegue a cero.</p>
+        <!-- Bloque 1 -->
+        <div class="bg-bgDark p-8 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors group relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-accentCyan transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+          <i data-lucide="brain-circuit" class="w-10 h-10 text-accentCyan mb-6 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+          <h3 class="text-3xl font-heading uppercase tracking-wide mb-3">DESCIFRA</h3>
+          <p class="text-textMuted text-sm leading-relaxed font-light">Puzzles lógicos, candados electrónicos y enigmas que requieren más que fuerza bruta. Tu mente es la única herramienta.</p>
         </div>
         
-        <!-- Tarjeta 2 -->
-        <div class="bg-bgCard p-8 rounded-xl border border-gray-800 text-center hover:border-accent transition-colors group">
-          <div class="w-16 h-16 mx-auto bg-bgDark rounded-full border border-gray-700 flex items-center justify-center mb-6 group-hover:border-accent transition-colors">
-            <i data-lucide="users" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h3 class="text-xl font-heading font-black uppercase tracking-tight mb-3">Trabajo en Equipo</h3>
-          <p class="text-textMuted text-sm leading-relaxed">Nadie escapa solo. La comunicación es clave. Excelente para fortalecer lazos con amigos o dinámicas de Teambuilding corporativo.</p>
+        <!-- Bloque 2 -->
+        <div class="bg-bgDark p-8 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors group relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-accentCyan transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 delay-100"></div>
+          <i data-lucide="network" class="w-10 h-10 text-accentCyan mb-6 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+          <h3 class="text-3xl font-heading uppercase tracking-wide mb-3">COORDINA</h3>
+          <p class="text-textMuted text-sm leading-relaxed font-light">Nadie escapa solo. La comunicación bajo presión define quién sale y quién se queda.</p>
         </div>
 
-        <!-- Tarjeta 3 -->
-        <div class="bg-bgCard p-8 rounded-xl border border-gray-800 text-center hover:border-accent transition-colors group">
-          <div class="w-16 h-16 mx-auto bg-bgDark rounded-full border border-gray-700 flex items-center justify-center mb-6 group-hover:border-accent transition-colors">
-            <i data-lucide="clapperboard" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h3 class="text-xl font-heading font-black uppercase tracking-tight mb-3">Inmersión Total</h3>
-          <p class="text-textMuted text-sm leading-relaxed">Escenarios construidos por profesionales. Efectos de sonido, automatización de Generación 3 y una historia que te atrapará.</p>
+        <!-- Bloque 3 -->
+        <div class="bg-bgDark p-8 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors group relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-accentCyan transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 delay-200"></div>
+          <i data-lucide="radio" class="w-10 h-10 text-accentCyan mb-6 opacity-80 group-hover:opacity-100 transition-opacity"></i>
+          <h3 class="text-3xl font-heading uppercase tracking-wide mb-3">SOBREVIVE</h3>
+          <p class="text-textMuted text-sm leading-relaxed font-light">Escenarios construidos por profesionales. Automatización Gen-3, audio espacial y una historia que no te suelta.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ROOMS SECTION (Estilo 60out/Enigma) -->
+  <!-- ROOMS SECTION -->
   <section id="salas" class="py-24 px-6 md:px-12 bg-bgDark">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-heading font-black uppercase tracking-tight mb-4">Nuestras Salas</h2>
-        <p class="text-textMuted text-lg">Selecciona tu misión. Reserva con confirmación inmediata.</p>
+      <div class="flex items-end justify-between mb-12 border-b border-[#1a1a2e] pb-4">
+        <div>
+          <span class="font-mono text-accentRed text-xs tracking-widest uppercase mb-2 block">Operaciones Activas</span>
+          <h2 class="text-5xl font-heading uppercase tracking-wide">ZONAS DE CONTENCIÓN</h2>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         
         <!-- ROOM 1: PROYECTO KANE -->
-        <div class="room-card flex flex-col">
+        <div class="room-card flex flex-col group relative">
           <div class="room-image-wrapper">
-            <div class="absolute top-4 left-4 z-10 bg-accent text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider">
-              Nuevo
+            <div class="absolute top-4 left-4 z-10 bg-accentRed text-white font-mono text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-widest flex items-center gap-2">
+              <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span> ACTIVO
             </div>
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Proyecto Kane" class="room-image">
           </div>
           
-          <div class="p-6 flex flex-col flex-grow">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="text-2xl font-heading font-black uppercase tracking-tight">Proyecto Kane</h3>
-            </div>
-            <p class="text-textMuted text-sm mb-6 flex-grow">
-              El laboratorio Sitio-7 ha entrado en cierre de emergencia. El Dr. Kane ha desaparecido y la contención falla. Entra y reinicia el sistema antes de que "La Presencia" escape.
+          <div class="p-8 flex flex-col flex-grow relative">
+            <h3 class="text-4xl font-heading uppercase tracking-wide mb-2 group-hover:text-accentCyan transition-colors">Proyecto Kane</h3>
+            <p class="text-textMuted text-sm mb-6 flex-grow font-light leading-relaxed">
+              Sitio-7 ha entrado en cierre de emergencia. El Dr. Kane desapareció hace 72 horas. La contención del Nivel B falla y algo se mueve en la oscuridad. Tienes 57 minutos para reiniciar el sistema antes de que La Presencia cruce el umbral.
             </p>
             
-            <!-- Room Stats Grid -->
-            <div class="grid grid-cols-3 gap-4 border-t border-b border-gray-800 py-4 mb-6">
+            <div class="grid grid-cols-3 gap-4 border-t border-b border-[#1a1a2e] py-4 mb-8 font-mono">
               <div class="flex flex-col items-center text-center">
-                <i data-lucide="users" class="w-5 h-5 text-accent mb-1"></i>
-                <span class="text-xs text-textMuted font-medium">Jugadores</span>
-                <span class="text-sm font-bold">2 - 5</span>
+                <span class="text-[10px] text-textMuted uppercase mb-1">Personal</span>
+                <span class="text-sm font-bold text-textMain">2 - 5</span>
               </div>
-              <div class="flex flex-col items-center text-center border-l border-r border-gray-800">
-                <i data-lucide="clock" class="w-5 h-5 text-accent mb-1"></i>
-                <span class="text-xs text-textMuted font-medium">Tiempo</span>
-                <span class="text-sm font-bold">60 Min</span>
+              <div class="flex flex-col items-center text-center border-l border-r border-[#1a1a2e]">
+                <span class="text-[10px] text-textMuted uppercase mb-1">Tiempo</span>
+                <span class="text-sm font-bold text-textMain">57 MIN</span>
               </div>
               <div class="flex flex-col items-center text-center">
-                <span class="text-xs text-textMuted font-medium mb-1">Dificultad</span>
-                <div class="flex gap-1 mt-1">
-                  <div class="difficulty-dot active"></div>
-                  <div class="difficulty-dot active"></div>
-                  <div class="difficulty-dot active"></div>
-                  <div class="difficulty-dot active"></div>
-                  <div class="difficulty-dot"></div>
-                </div>
-                <span class="text-xs font-bold mt-1 text-accent">Difícil</span>
+                <span class="text-[10px] text-textMuted uppercase mb-1">Riesgo</span>
+                <span class="text-sm font-bold text-accentRed">ALTO</span>
               </div>
             </div>
             
-            <a href="proyecto-kane.html" class="btn-primary w-full py-3 rounded text-center">Ver Detalles</a>
+            <a href="proyecto-kane.html" class="btn-cyan-outline w-full py-4 rounded-sm text-center text-sm">ACCEDER AL EXPEDIENTE</a>
           </div>
         </div>
 
-        <!-- COMING SOON -->
-        <div class="room-card flex flex-col justify-center items-center p-8 bg-bgCard/50 border-dashed border-2 border-gray-800">
-          <i data-lucide="lock" class="w-12 h-12 text-gray-700 mb-4"></i>
-          <h3 class="text-2xl font-heading font-black uppercase text-gray-600 mb-2">Próximamente</h3>
-          <p class="text-gray-500 text-sm text-center">Nuestros ingenieros están trabajando en la siguiente experiencia.</p>
+        <!-- ROOM 2: LISTA DE ESPERA -->
+        <div class="room-card flex flex-col bg-bgCard border-dashed border-[#1a1a2e] relative overflow-hidden">
+          <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0l40 40m0-40L0 40\' stroke=\'%231a1a2e\' stroke-width=\'1\' fill=\'none\' fill-rule=\'evenodd\'/%3E%3C/svg%3E')] opacity-30 pointer-events-none"></div>
+          
+          <div class="p-8 flex flex-col items-center justify-center h-full text-center relative z-10">
+            <i data-lucide="triangle-alert" class="w-12 h-12 text-accentGold mb-6 opacity-80"></i>
+            <h3 class="text-3xl font-heading uppercase text-textMain mb-2">SALA 02 — CLASIFICADO</h3>
+            <p class="text-textMuted text-sm font-light mb-8 max-w-sm">
+              Nuestros ingenieros están construyendo algo que no deberías ver. Déjanos tu correo y serás el primero en saberlo.
+            </p>
+            
+            <form class="w-full max-w-sm flex flex-col gap-3 font-mono">
+              <input type="email" placeholder="INGRESAR CORREO..." class="input-sci-fi w-full px-4 py-3 rounded-sm text-sm" required>
+              <button type="button" class="bg-accentGold text-bgDark font-bold px-4 py-3 rounded-sm text-sm uppercase tracking-widest hover:bg-yellow-400 transition-colors">
+                NOTIFICARME
+              </button>
+            </form>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- FEATURES (Social Proof / Info) -->
-  <section class="py-20 border-y border-gray-900 bg-[#0d0d0d]">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div class="flex flex-col items-center">
-          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
-            <i data-lucide="star" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h4 class="font-heading font-black text-2xl">4.9/5</h4>
-          <p class="text-textMuted text-sm">Reseñas en Google</p>
-        </div>
-        <div class="flex flex-col items-center">
-          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
-            <i data-lucide="lock" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h4 class="font-heading font-black text-2xl">Privado</h4>
-          <p class="text-textMuted text-sm">Juegas solo con tu grupo</p>
-        </div>
-        <div class="flex flex-col items-center">
-          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
-            <i data-lucide="cpu" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h4 class="font-heading font-black text-2xl">Generación 3</h4>
-          <p class="text-textMuted text-sm">Tecnología e inmersión</p>
-        </div>
-        <div class="flex flex-col items-center">
-          <div class="w-16 h-16 rounded-full bg-bgCard flex items-center justify-center mb-4 border border-gray-800">
-            <i data-lucide="map-pin" class="w-8 h-8 text-accent"></i>
-          </div>
-          <h4 class="font-heading font-black text-2xl">Central</h4>
-          <p class="text-textMuted text-sm">Ubicación de fácil acceso</p>
-        </div>
-      </div>
+  <!-- BANNER FINAL CTA -->
+  <section class="py-24 bg-bgCard relative overflow-hidden text-center px-6 border-t border-[#1a1a2e]">
+    <div class="absolute inset-0 bg-accentCyan/5 z-0"></div>
+    <div class="absolute inset-0 flex justify-center items-center opacity-5 pointer-events-none z-0">
+      <span class="font-heading text-[30rem] leading-none text-accentCyan">57</span>
     </div>
-  </section>
-
-  <!-- BANNER DE URGENCIA -->
-  <section class="py-24 bg-accent relative overflow-hidden text-center px-6">
-    <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h20v20H0V0zm10 10h10v10H10V10zM0 10h10v10H0V10zM10 0h10v10H10V0z\' fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E')]"></div>
-    <div class="relative z-10 max-w-4xl mx-auto">
-      <h2 class="text-4xl md:text-6xl font-heading font-black text-bgDark uppercase tracking-tighter mb-6">
-        El Reloj Ya Está Corriendo
-      </h2>
-      <p class="text-bgDark/80 font-bold text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-        No dejes que te lo cuenten. Reúne a tu equipo de 2 a 5 personas y reserva tu sesión privada hoy mismo.
+    
+    <div class="relative z-10 max-w-3xl mx-auto">
+      <div class="font-heading text-8xl md:text-9xl text-accentRed glow-red mb-4 leading-none tracking-widest">
+        57:00
+      </div>
+      <p class="text-textMain font-mono text-sm md:text-base mb-10 leading-relaxed uppercase tracking-widest">
+        Tu sesión privada para 2-5 personas.<br>
+        <span class="text-accentCyan">Una sala. Un misterio. Sin segundas oportunidades.</span>
       </p>
-      <a href="#salas" class="inline-block bg-bgDark text-white font-heading font-black text-xl md:text-2xl uppercase tracking-wider px-12 py-5 rounded hover:bg-white hover:text-bgDark transition-all shadow-xl hover:scale-105">
-        Ver Disponibilidad
+      <a href="https://wa.me/1234567890" target="_blank" class="btn-red inline-flex items-center gap-3 px-12 py-5 rounded-sm text-lg md:text-xl">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+        RESERVAR POR WHATSAPP
       </a>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-bgDark py-12 border-t border-gray-900">
+  <footer class="bg-bgDark py-12 border-t border-[#1a1a2e]">
     <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="text-2xl font-heading font-black tracking-tighter">
-        57<span class="text-accent">ROOMS</span>
+      <div class="text-3xl font-heading tracking-wider flex items-center gap-2">
+        <i data-lucide="door-closed" class="w-6 h-6 text-accentCyan"></i>
+        57<span class="text-accentCyan">ROOMS</span>
       </div>
-      <div class="text-textMuted text-sm">
-        &copy; 2026 57Rooms Escape Room. Todos los derechos reservados.
+      <div class="text-textMuted font-mono text-xs uppercase tracking-widest">
+        &copy; 2026 57Rooms Escape Room. Bucaramanga.
       </div>
       <div class="flex gap-4">
-        <a href="#" class="w-10 h-10 rounded bg-bgCard flex items-center justify-center hover:text-accent transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-        <a href="#" class="w-10 h-10 rounded bg-bgCard flex items-center justify-center hover:text-accent transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+        <a href="#" class="w-10 h-10 rounded-sm border border-[#1a1a2e] flex items-center justify-center hover:border-accentCyan hover:text-accentCyan transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+        <a href="#" class="w-10 h-10 rounded-sm border border-[#1a1a2e] flex items-center justify-center hover:border-accentCyan hover:text-accentCyan transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
       </div>
     </div>
   </footer>
@@ -347,10 +350,12 @@
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
         navbar.classList.add('nav-blur');
+        navbar.classList.remove('border-transparent');
         navbar.classList.remove('py-4');
         navbar.classList.add('py-3');
       } else {
         navbar.classList.remove('nav-blur');
+        navbar.classList.add('border-transparent');
         navbar.classList.remove('py-3');
         navbar.classList.add('py-4');
       }
