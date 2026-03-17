@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proyecto Kane | 57 Rooms Colombia</title>
 
-  <!-- Google Fonts: Bebas Neue, Space Mono, DM Sans -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -20,19 +20,17 @@
       theme: {
         extend: {
           colors: {
-            bgDark: '#050508',
-            bgCard: '#0D0D18',
-            accentCyan: '#00E5FF',
-            accentRed: '#FF2A2A',
-            textMain: '#F0F0F5',
-            textMuted: '#6A6A7A',
-            accentGold: '#FFB800',
-            wpGreen: '#25D366',
+            brandDark: '#111111',
+            brandGray: '#222222',
+            brandRed: '#E63946',
+            brandOrange: '#FF6B35',
+            textMain: '#2B2D42',
+            textMuted: '#6C757D',
+            bgLight: '#F8F9FA',
           },
           fontFamily: {
             heading: ['Bebas Neue', 'sans-serif'],
-            mono: ['Space Mono', 'monospace'],
-            body: ['DM Sans', 'sans-serif'],
+            body: ['Montserrat', 'sans-serif'],
           }
         }
       }
@@ -41,253 +39,192 @@
 
   <style>
     body { 
-      background-color: #050508; 
-      color: #F0F0F5; 
-      position: relative;
-    }
-    
-    /* Film Grain Overlay */
-    .grain::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      opacity: 0.05;
-      pointer-events: none;
-      z-index: 9998;
+      background-color: #F8F9FA; 
+      color: #2B2D42; 
     }
 
-    /* Efecto Scanlines Sutil */
-    .scanlines {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.1) 50%,
-        rgba(0,0,0,0.1)
-      );
-      background-size: 100% 4px;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.3;
-    }
-
-    /* Grid Técnico de Fondo */
-    .tech-grid {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(0, 229, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Glows y Animaciones */
-    .glow-cyan { text-shadow: 0 0 20px rgba(0,229,255,0.3); }
-    .glow-cyan-box { box-shadow: 0 0 20px rgba(0,229,255,0.2); }
-    
-    .glow-red { text-shadow: 0 0 20px rgba(255,42,42,0.4); }
-    .glow-red-box { box-shadow: 0 0 30px rgba(255,42,42,0.4); }
-
-    @keyframes blink-animation {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    .blink { animation: blink-animation 1s infinite; }
-
-    /* Botones CTA */
-    .btn-red {
-      background-color: #FF2A2A;
-      color: #F0F0F5;
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
+    .btn-massive {
+      background: linear-gradient(135deg, #E63946, #FF6B35);
+      color: white;
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       transition: all 0.3s ease;
-      box-shadow: 0 0 30px rgba(255, 42, 42, 0.4);
-    }
-    .btn-red:hover {
-      background-color: #e02020;
-      transform: translateY(-2px);
-      box-shadow: 0 0 40px rgba(255, 42, 42, 0.6);
-    }
-
-    /* Nav Blur */
-    .nav-blur {
-      backdrop-filter: blur(12px);
-      background-color: rgba(5, 5, 8, 0.9);
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-    }
-
-    /* Floating WhatsApp */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #25D366;
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50px;
-      display: flex;
+      box-shadow: 0 10px 25px rgba(230, 57, 70, 0.4);
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      transition: all 0.3s ease;
+      border-radius: 8px;
     }
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+    .btn-massive:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(230, 57, 70, 0.6);
+      filter: brightness(1.1);
+    }
+
+    .nav-scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .nav-scrolled .nav-logo { color: #111; }
+    .nav-scrolled .nav-link { color: #2B2D42; }
+    
+    .nav-logo { color: white; transition: color 0.3s; }
+    .nav-link { color: white; transition: color 0.3s; }
+
+    .stat-box {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border-top: 6px solid #FF6B35;
+    }
+
+    .feature-icon {
+      background: rgba(255, 107, 53, 0.1);
+      color: #FF6B35;
+      padding: 12px;
+      border-radius: 12px;
     }
   </style>
 </head>
-<body class="font-body antialiased selection:bg-accentCyan selection:text-bgDark grain">
+<body class="font-body antialiased selection:bg-brandOrange selection:text-white">
 
-  <div class="scanlines"></div>
-
-  <!-- Botón WhatsApp Flotante -->
-  <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
-  </a>
+  <!-- Header Banner -->
+  <div class="bg-brandRed text-white text-center py-2 font-bold text-xs uppercase tracking-widest z-[60] relative">
+    ¡RESERVA ÚNICAMENTE A TRAVÉS DE NUESTRO WEBSITE!
+  </div>
 
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 nav-blur border-transparent">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 top-[32px]">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="text-3xl font-heading tracking-wider flex items-center gap-2 group">
-        <i data-lucide="chevron-left" class="w-6 h-6 text-accentCyan group-hover:-translate-x-1 transition-transform"></i>
-        57<span class="text-accentCyan glow-cyan">ROOMS</span>
+      <a href="index.html" class="text-4xl font-heading tracking-widest flex items-center gap-2 nav-logo">
+        <i data-lucide="chevron-left" class="w-8 h-8 text-brandOrange hover:-translate-x-1 transition-transform cursor-pointer"></i>
+        57<span class="text-brandOrange">ROOMS</span>
       </a>
-      <a href="#reservar" class="btn-red px-6 py-2.5 rounded-sm text-sm hidden sm:block">Reservar Sesión</a>
+      
+      <div class="hidden md:flex items-center gap-8 font-bold text-sm tracking-wide">
+        <a href="#reservar" class="btn-massive px-8 py-3 rounded-md text-sm">Reservar Sala</a>
+      </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION (Room Specific) -->
-  <section class="relative h-[60vh] md:h-[70vh] flex items-end pb-12 md:pb-20 border-b border-accentCyan/20">
-    <div class="absolute inset-0 z-0 bg-bgDark">
-      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-bgDark/60 to-transparent z-10"></div>
-      <!-- Unsplash placeholder replacing NanoBanana prompt: Abandoned underground laboratory -->
-      <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1920" alt="Proyecto Kane Lab" class="w-full h-full object-cover grayscale opacity-50">
+  <!-- HERO SECTION -->
+  <section class="relative h-[60vh] flex items-center justify-center pt-20 overflow-hidden bg-brandDark">
+    <!-- Image -->
+    <div class="absolute inset-0 z-0 opacity-60">
+      <img src="/img/hero-2.png" alt="Proyecto Kane Background" class="w-full h-full object-cover">
     </div>
-    <div class="tech-grid"></div>
+    
+    <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-transparent to-transparent z-10"></div>
 
-    <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-accentRed/10 border border-accentRed text-accentRed font-mono font-bold text-xs uppercase tracking-widest mb-4 rounded-sm glow-red-box">
-        <span class="w-2.5 h-2.5 rounded-full bg-accentRed blink"></span>
-        EXPEDIENTE 01: SCI-FI HORROR
+    <div class="relative z-20 text-center text-white px-6 mt-12">
+      <div class="inline-block bg-brandRed text-white font-bold px-4 py-1 rounded-full uppercase text-sm mb-4 tracking-wider shadow-lg">
+        +15 AÑOS
       </div>
-      <h1 class="text-6xl md:text-8xl lg:text-9xl font-heading uppercase tracking-wide mb-2 glow-cyan">
-        PROYECTO <span class="text-accentCyan">KANE</span>
+      <h1 class="text-7xl md:text-[8rem] font-heading leading-none tracking-wide mb-4 drop-shadow-2xl">
+        PROYECTO <span class="text-brandOrange">KANE</span>
       </h1>
-      <p class="text-xl md:text-2xl text-textMuted font-light max-w-2xl font-body">
-        "No es un fantasma. Es una consciencia depredadora."
+      <p class="text-xl md:text-2xl font-medium max-w-2xl mx-auto text-gray-200">
+        El Sitio-7 ha caído. 60 minutos para evitar el desastre.
       </p>
     </div>
   </section>
 
-  <!-- CONTENT SECTION -->
-  <section class="py-16 md:py-24 px-6 md:px-12 bg-bgDark">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
+  <!-- CONTENT SECTION (Estilo Enigma - Limpio y Blanco) -->
+  <section class="py-20 px-6 md:px-12 bg-bgLight">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
       
-      <!-- LEFT COLUMN: Story & Details -->
-      <div class="lg:col-span-2 space-y-12">
+      <!-- LEFT COLUMN: Historia y Características -->
+      <div class="lg:col-span-8 space-y-12">
         
-        <!-- The Briefing -->
         <div>
-          <h2 class="text-4xl font-heading uppercase tracking-wide mb-6 flex items-center gap-3 text-accentCyan">
-            <i data-lucide="file-terminal" class="w-8 h-8"></i>
-            MISIÓN / BRIEFING
-          </h2>
-          <div class="prose prose-invert max-w-none text-textMuted text-lg leading-relaxed font-light space-y-6">
+          <h2 class="text-5xl font-heading text-brandDark mb-6 uppercase">La Misión</h2>
+          <div class="prose prose-lg max-w-none text-textMain font-medium leading-relaxed space-y-6">
             <p>
-              <strong class="text-textMain font-normal">Vertex Corporation</strong> ha perdido todo contacto con el <strong class="text-textMain font-normal">Sitio-7</strong>, un laboratorio subterráneo de máxima seguridad. El director de la instalación, el Dr. Thomas Kane, lleva desaparecido 72 horas.
+              La corporación <strong>Vertex</strong> ha perdido todo contacto con el Sitio-7, un laboratorio subterráneo de máxima seguridad. El director de la instalación, el Dr. Thomas Kane, lleva desaparecido 72 horas.
             </p>
             <p>
-              El objetivo oficial del laboratorio era el desarrollo de computación cuántica. Extraoficialmente, Kane logró extraer y contener una forma de consciencia pura de un plano dimensional paralelo. La llamó <strong class="text-accentCyan glow-cyan">"La Presencia"</strong>.
+              El objetivo oficial del laboratorio era el desarrollo de computación cuántica. Extraoficialmente, Kane logró extraer y contener una forma de consciencia pura de un plano dimensional paralelo. La llamó <span class="text-brandOrange font-bold">"La Presencia"</span>.
             </p>
             <p>
               La Presencia se alimenta de energía bioeléctrica. Cada humano cerca de ella la fortalece. Y lo peor: puede manipular los sistemas electrónicos de la instalación. Las luces, las puertas, los audios... la instalación entera es su arma.
             </p>
-            <p class="p-6 bg-bgCard border-l-4 border-accentRed text-textMain rounded-r-sm">
-              Su equipo de extracción tiene <strong class="text-accentRed glow-red font-mono">57 minutos</strong> para entrar al Sitio-7, llegar al Núcleo de Contención (Nivel B), restablecer los protocolos de seguridad y asegurar la instalación antes de que la grieta dimensional cruce el umbral.
-            </p>
+            <div class="bg-white p-6 rounded-xl border-l-4 border-brandRed shadow-sm mt-8">
+              <strong class="text-brandRed text-xl block mb-2 font-heading tracking-wide">EL OBJETIVO</strong>
+              Su equipo de extracción tiene <strong>60 minutos</strong> para entrar al Sitio-7, llegar al Núcleo de Contención, restablecer los protocolos de seguridad y asegurar la instalación antes de que la grieta dimensional cruce el umbral.
+            </div>
           </div>
         </div>
 
-        <!-- The Experience (Commercial Value) -->
         <div>
-          <h2 class="text-3xl font-heading uppercase tracking-wide mb-6 mt-12 border-t border-[#1a1a2e] pt-8 text-textMain">LA EXPERIENCIA 57ROOMS</h2>
-          <div class="bg-bgCard border border-[#1a1a2e] rounded-sm p-6 relative overflow-hidden group hover:border-accentCyan transition-colors">
-            <div class="absolute top-0 left-0 w-1 h-full bg-accentCyan"></div>
-            <p class="text-textMuted text-sm leading-relaxed mb-4 font-light">
-              A diferencia de las salas tradicionales, <strong class="text-accentCyan">Proyecto Kane</strong> está diseñada como una experiencia inmersiva de Generación 3. Esto significa que no estarás perdiendo el tiempo buscando llaves ocultas en cajones para abrir candados de bicicleta.
-            </p>
-            <p class="text-textMuted text-sm leading-relaxed font-light">
-              Tus acciones físicas interactúan directamente con el software de la habitación. Si resuelves un panel de energía, las luces de la sala cambiarán, los motores arrancarán y la historia avanzará fluidamente. Es lo más cercano a ser el protagonista de una película de Hollywood.
-            </p>
+          <h2 class="text-4xl font-heading text-brandDark mb-8 uppercase">Características del Set</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm flex gap-4 items-start">
+              <div class="feature-icon shrink-0"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+              <div>
+                <h4 class="font-bold text-brandDark mb-1">Tecnología Inmersiva</h4>
+                <p class="text-sm text-textMuted">Olvídate de los candados con llave. Todo se resuelve mediante sensores y sistemas físicos.</p>
+              </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm flex gap-4 items-start">
+              <div class="feature-icon shrink-0"><i data-lucide="radio" class="w-6 h-6"></i></div>
+              <div>
+                <h4 class="font-bold text-brandDark mb-1">Efectos Dinámicos</h4>
+                <p class="text-sm text-textMuted">Iluminación y audio que reaccionan a las decisiones y movimientos de tu equipo.</p>
+              </div>
+            </div>
           </div>
         </div>
+        
       </div>
 
-      <!-- RIGHT COLUMN: Sticky Booking Panel -->
-      <div class="lg:col-span-1">
-        <div class="sticky top-32 bg-bgCard border border-[#1a1a2e] border-t-2 border-t-accentCyan rounded-sm p-8" id="reservar">
+      <!-- RIGHT COLUMN: Sticky Booking Panel (Estilo Scape Games) -->
+      <div class="lg:col-span-4" id="reservar">
+        <div class="sticky top-32 stat-box p-8">
           
-          <h3 class="text-3xl font-heading uppercase tracking-wide mb-6 text-center border-b border-[#1a1a2e] pb-4">AUTORIZACIÓN</h3>
+          <h3 class="text-4xl font-heading text-brandDark mb-2 text-center uppercase">RESERVAR SALA</h3>
+          <p class="text-center text-textMuted font-bold text-sm mb-8 uppercase tracking-wider">Pago en efectivo/tarjeta en el local</p>
           
-          <div class="space-y-6 mb-8 font-mono text-sm">
-            <div class="flex justify-between items-center pb-4 border-b border-[#1a1a2e]">
-              <div class="flex items-center gap-3 text-textMuted">
-                <i data-lucide="users" class="w-4 h-4 text-accentCyan"></i>
-                <span class="uppercase">Personal</span>
+          <div class="space-y-4 mb-8">
+            <div class="flex justify-between items-center bg-bgLight p-4 rounded-lg">
+              <div class="flex items-center gap-2 text-textMuted font-bold text-sm uppercase">
+                <i data-lucide="users" class="w-4 h-4 text-brandOrange"></i> Equipo
               </div>
-              <span class="font-bold text-textMain">2 - 5 Operarios</span>
+              <span class="font-black text-brandDark text-lg">2 - 5 Jugadores</span>
             </div>
             
-            <div class="flex justify-between items-center pb-4 border-b border-[#1a1a2e]">
-              <div class="flex items-center gap-3 text-textMuted">
-                <i data-lucide="clock" class="w-4 h-4 text-accentCyan"></i>
-                <span class="uppercase">Ventana</span>
+            <div class="flex justify-between items-center bg-bgLight p-4 rounded-lg">
+              <div class="flex items-center gap-2 text-textMuted font-bold text-sm uppercase">
+                <i data-lucide="clock" class="w-4 h-4 text-brandOrange"></i> Tiempo
               </div>
-              <span class="font-bold text-textMain">57 Minutos</span>
+              <span class="font-black text-brandDark text-lg">60 Minutos</span>
             </div>
 
-            <div class="flex justify-between items-center pb-4 border-b border-[#1a1a2e]">
-              <div class="flex items-center gap-3 text-textMuted">
-                <i data-lucide="shield-alert" class="w-4 h-4 text-accentCyan"></i>
-                <span class="uppercase">Restricción</span>
-              </div>
-              <span class="font-bold text-textMain">+15 Años</span>
-            </div>
-            
-            <div class="pt-2">
-              <div class="flex justify-between items-center mb-3">
-                <div class="flex items-center gap-3 text-textMuted">
-                  <i data-lucide="flame" class="w-4 h-4 text-accentRed"></i>
-                  <span class="uppercase">Riesgo</span>
+            <div class="flex flex-col bg-bgLight p-4 rounded-lg">
+              <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-2 text-textMuted font-bold text-sm uppercase">
+                  <i data-lucide="flame" class="w-4 h-4 text-brandRed"></i> Dificultad
                 </div>
-                <span class="font-bold text-accentRed uppercase tracking-widest glow-red">Alto Nivel</span>
+                <span class="font-black text-brandRed">ALTA</span>
               </div>
-              <div class="flex gap-2">
-                <div class="h-2 flex-1 rounded-sm bg-accentRed shadow-[0_0_5px_#FF2A2A]"></div>
-                <div class="h-2 flex-1 rounded-sm bg-accentRed shadow-[0_0_5px_#FF2A2A]"></div>
-                <div class="h-2 flex-1 rounded-sm bg-accentRed shadow-[0_0_5px_#FF2A2A]"></div>
-                <div class="h-2 flex-1 rounded-sm bg-accentRed shadow-[0_0_5px_#FF2A2A]"></div>
-                <div class="h-2 flex-1 rounded-sm bg-[#1a1a2e]"></div>
+              <div class="flex gap-1">
+                <div class="h-2 flex-1 rounded-full bg-brandRed"></div>
+                <div class="h-2 flex-1 rounded-full bg-brandRed"></div>
+                <div class="h-2 flex-1 rounded-full bg-brandRed"></div>
+                <div class="h-2 flex-1 rounded-full bg-brandRed"></div>
+                <div class="h-2 flex-1 rounded-full bg-gray-300"></div>
               </div>
             </div>
           </div>
 
-          <a href="https://wa.me/1234567890" target="_blank" class="btn-red w-full flex items-center justify-center gap-2 py-4 rounded-sm text-lg">
-            <i data-lucide="message-circle" class="w-5 h-5"></i>
-            RESERVAR POR WHATSAPP
+          <a href="https://wa.me/1234567890" target="_blank" class="btn-massive w-full py-4 text-lg">
+            <i data-lucide="message-circle" class="mr-2"></i> RESERVAR POR WHATSAPP
           </a>
-          <p class="text-center text-xs text-textMuted mt-4 font-mono uppercase tracking-widest">Pago en instalación</p>
+          
+          <div class="mt-6 flex items-center justify-center gap-2 text-green-600 font-bold text-xs uppercase tracking-wider">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> Sala Privada 100% Garantizada
+          </div>
         </div>
       </div>
 
@@ -295,13 +232,13 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-bgDark py-12 border-t border-[#1a1a2e]">
+  <footer class="bg-brandDark text-white py-12 border-t border-gray-900">
     <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="text-3xl font-heading tracking-wider flex items-center gap-2">
-        <i data-lucide="scan-line" class="w-6 h-6 text-accentCyan"></i>
-        57<span class="text-accentCyan">ROOMS</span>
+      <div class="text-3xl font-heading tracking-widest flex items-center gap-2">
+        <i data-lucide="door-open" class="w-6 h-6 text-brandOrange"></i>
+        57<span class="text-brandOrange">ROOMS</span>
       </div>
-      <div class="text-textMuted font-mono text-[10px] sm:text-xs uppercase tracking-widest text-center">
+      <div class="text-gray-500 font-bold text-xs uppercase tracking-widest text-center">
         &copy; 2026 57ROOMS ESCAPE ROOM. COLOMBIA.
       </div>
     </div>
@@ -312,13 +249,18 @@
 
     // Efecto nav al scrollear
     const navbar = document.getElementById('navbar');
+    
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
-        navbar.classList.add('nav-blur');
-        navbar.classList.remove('border-transparent');
+        navbar.classList.add('nav-scrolled');
+        navbar.style.top = '0';
+        navbar.classList.remove('py-4');
+        navbar.classList.add('py-2');
       } else {
-        navbar.classList.remove('nav-blur');
-        navbar.classList.add('border-transparent');
+        navbar.classList.remove('nav-scrolled');
+        navbar.style.top = '32px';
+        navbar.classList.remove('py-2');
+        navbar.classList.add('py-4');
       }
     });
   </script>
