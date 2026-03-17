@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proyecto Kane | 57 Rooms</title>
+  <title>Proyecto Kane | 57 Rooms Bucaramanga</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Bebas Neue, Space Mono, DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@
             textMain: '#F0F0F5',
             textMuted: '#6A6A7A',
             accentGold: '#FFB800',
+            wpGreen: '#25D366',
           },
           fontFamily: {
             heading: ['Bebas Neue', 'sans-serif'],
@@ -39,8 +40,56 @@
   </script>
 
   <style>
-    body { background-color: #050508; color: #F0F0F5; }
+    body { 
+      background-color: #050508; 
+      color: #F0F0F5; 
+      position: relative;
+    }
     
+    /* Efecto Scanlines Sutil */
+    .scanlines {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.1) 50%,
+        rgba(0,0,0,0.1)
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+
+    /* Grid Técnico de Fondo */
+    .tech-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Glows y Animaciones */
+    .glow-cyan { text-shadow: 0 0 20px rgba(0,229,255,0.3); }
+    .glow-cyan-box { box-shadow: 0 0 20px rgba(0,229,255,0.2); }
+    
+    .glow-red { text-shadow: 0 0 20px rgba(255,42,42,0.4); }
+    .glow-red-box { box-shadow: 0 0 30px rgba(255,42,42,0.4); }
+
+    @keyframes blink-animation {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .blink { animation: blink-animation 1s infinite; }
+
+    /* Botones CTA */
     .btn-red {
       background-color: #FF2A2A;
       color: #F0F0F5;
@@ -49,43 +98,55 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 42, 42, 0.4);
+      box-shadow: 0 0 30px rgba(255, 42, 42, 0.4);
     }
     .btn-red:hover {
       background-color: #e02020;
       transform: translateY(-2px);
-      box-shadow: 0 0 25px rgba(255, 42, 42, 0.6);
+      box-shadow: 0 0 40px rgba(255, 42, 42, 0.6);
     }
 
+    /* Nav Blur */
     .nav-blur {
       backdrop-filter: blur(12px);
       background-color: rgba(5, 5, 8, 0.9);
-      border-bottom: 1px solid #1a1a2e;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
     }
 
-    .stat-box {
-      background-color: #0D0D18;
-      border: 1px solid #1a1a2e;
-      border-top: 2px solid #00E5FF;
-      border-radius: 4px;
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
-
-    .difficulty-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #1a1a2e;
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
     }
-    .difficulty-dot.active { background-color: #FF2A2A; }
-
-    .glow-cyan { text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); }
-    .glow-red { text-shadow: 0 0 10px rgba(255, 42, 42, 0.5); }
   </style>
 </head>
 <body class="font-body antialiased selection:bg-accentCyan selection:text-bgDark">
 
+  <div class="scanlines"></div>
+
+  <!-- Botón WhatsApp Flotante -->
+  <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-float">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
+  </a>
+
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 nav-blur">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 nav-blur border-transparent">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <a href="index.html" class="text-3xl font-heading tracking-wider flex items-center gap-2 group">
         <i data-lucide="chevron-left" class="w-6 h-6 text-accentCyan group-hover:-translate-x-1 transition-transform"></i>
@@ -95,17 +156,19 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <section class="relative h-[60vh] md:h-[70vh] flex items-end pb-12 md:pb-20">
-    <div class="absolute inset-0 z-0 border-b border-[#1a1a2e]">
-      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-bgDark/80 to-transparent z-10"></div>
-      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1920" alt="Proyecto Kane Lab" class="w-full h-full object-cover grayscale opacity-60">
+  <!-- HERO SECTION (Room Specific) -->
+  <section class="relative h-[60vh] md:h-[70vh] flex items-end pb-12 md:pb-20 border-b border-accentCyan/20">
+    <div class="absolute inset-0 z-0 bg-bgDark">
+      <div class="absolute inset-0 bg-gradient-to-t from-bgDark via-bgDark/60 to-transparent z-10"></div>
+      <!-- Unsplash placeholder replacing NanoBanana prompt: Abandoned underground laboratory -->
+      <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=1920" alt="Proyecto Kane Lab" class="w-full h-full object-cover grayscale opacity-50">
     </div>
+    <div class="tech-grid"></div>
 
     <div class="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-accentRed/10 border border-accentRed/30 text-accentRed font-mono font-bold text-xs uppercase tracking-widest mb-4 rounded-sm">
-        <span class="w-2.5 h-2.5 rounded-full bg-accentRed animate-pulse shadow-[0_0_8px_#FF2A2A]"></span>
-        Sci-Fi Horror
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-accentRed/10 border border-accentRed text-accentRed font-mono font-bold text-xs uppercase tracking-widest mb-4 rounded-sm glow-red-box">
+        <span class="w-2.5 h-2.5 rounded-full bg-accentRed blink"></span>
+        EXPEDIENTE 01: SCI-FI HORROR
       </div>
       <h1 class="text-6xl md:text-8xl lg:text-9xl font-heading uppercase tracking-wide mb-2 glow-cyan">
         PROYECTO <span class="text-accentCyan">KANE</span>
@@ -140,50 +203,29 @@
               La Presencia se alimenta de energía bioeléctrica. Cada humano cerca de ella la fortalece. Y lo peor: puede manipular los sistemas electrónicos de la instalación. Las luces, las puertas, los audios... la instalación entera es su arma.
             </p>
             <p class="p-6 bg-bgCard border-l-4 border-accentRed text-textMain rounded-r-sm">
-              Su equipo de extracción tiene <strong class="text-accentRed glow-red">57 minutos</strong> para entrar al Sitio-7, llegar al Núcleo de Contención (Nivel B), restablecer los protocolos de seguridad y asegurar la instalación antes de que la grieta dimensional cruce el umbral.
+              Su equipo de extracción tiene <strong class="text-accentRed glow-red font-mono">57 minutos</strong> para entrar al Sitio-7, llegar al Núcleo de Contención (Nivel B), restablecer los protocolos de seguridad y asegurar la instalación antes de que la grieta dimensional cruce el umbral.
             </p>
           </div>
         </div>
 
-        <!-- What to Expect -->
+        <!-- The Experience (Commercial Value) -->
         <div>
-          <h2 class="text-4xl font-heading uppercase tracking-wide mb-8">PARÁMETROS DEL SISTEMA</h2>
-          <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <li class="flex items-start gap-4 bg-bgCard p-5 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors">
-              <i data-lucide="cpu" class="w-6 h-6 text-accentCyan shrink-0 mt-0.5"></i>
-              <div>
-                <strong class="block text-textMain font-mono text-sm tracking-widest uppercase mb-2">Gen-3 Tech</strong>
-                <span class="text-sm text-textMuted font-light">Cero candados clásicos. Todo funciona mediante electrónica, sensores y acciones físicas en la sala.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-4 bg-bgCard p-5 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors">
-              <i data-lucide="radio" class="w-6 h-6 text-accentCyan shrink-0 mt-0.5"></i>
-              <div>
-                <strong class="block text-textMain font-mono text-sm tracking-widest uppercase mb-2">Anomalías EMS</strong>
-                <span class="text-sm text-textMuted font-light">Las luces y sonidos reaccionan a su progreso. La inmersión en el set es absoluta.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-4 bg-bgCard p-5 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors">
-              <i data-lucide="brain-circuit" class="w-6 h-6 text-accentCyan shrink-0 mt-0.5"></i>
-              <div>
-                <strong class="block text-textMain font-mono text-sm tracking-widest uppercase mb-2">Tensión Constante</strong>
-                <span class="text-sm text-textMuted font-light">Terror psicológico puro. La entidad no tiene cuerpo, pero sabrás perfectamente que está ahí.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-4 bg-bgCard p-5 rounded-sm border border-[#1a1a2e] hover:border-accentCyan transition-colors">
-              <i data-lucide="network" class="w-6 h-6 text-accentCyan shrink-0 mt-0.5"></i>
-              <div>
-                <strong class="block text-textMain font-mono text-sm tracking-widest uppercase mb-2">Red Requerida</strong>
-                <span class="text-sm text-textMuted font-light">Puzzles diseñados específicamente para requerir comunicación simultánea entre varios miembros.</span>
-              </div>
-            </li>
-          </ul>
+          <h2 class="text-3xl font-heading uppercase tracking-wide mb-6 mt-12 border-t border-[#1a1a2e] pt-8 text-textMain">LA EXPERIENCIA 57ROOMS</h2>
+          <div class="bg-bgCard border border-[#1a1a2e] rounded-sm p-6 relative overflow-hidden group hover:border-accentCyan transition-colors">
+            <div class="absolute top-0 left-0 w-1 h-full bg-accentCyan"></div>
+            <p class="text-textMuted text-sm leading-relaxed mb-4 font-light">
+              A diferencia de las salas tradicionales, <strong class="text-accentCyan">Proyecto Kane</strong> está diseñada como una experiencia inmersiva de Generación 3. Esto significa que no estarás perdiendo el tiempo buscando llaves ocultas en cajones para abrir candados de bicicleta.
+            </p>
+            <p class="text-textMuted text-sm leading-relaxed font-light">
+              Tus acciones físicas interactúan directamente con el software de la habitación. Si resuelves un panel de energía, las luces de la sala cambiarán, los motores arrancarán y la historia avanzará fluidamente. Es lo más cercano a ser el protagonista de una película de Hollywood.
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- RIGHT COLUMN: Sticky Booking Panel -->
       <div class="lg:col-span-1">
-        <div class="sticky top-32 stat-box p-8">
+        <div class="sticky top-32 bg-bgCard border border-[#1a1a2e] border-t-2 border-t-accentCyan rounded-sm p-8" id="reservar">
           
           <h3 class="text-3xl font-heading uppercase tracking-wide mb-6 text-center border-b border-[#1a1a2e] pb-4">AUTORIZACIÓN</h3>
           
@@ -209,7 +251,7 @@
                 <i data-lucide="shield-alert" class="w-4 h-4 text-accentCyan"></i>
                 <span class="uppercase">Restricción</span>
               </div>
-              <span class="font-bold text-textMain">+16 Años</span>
+              <span class="font-bold text-textMain">+15 Años</span>
             </div>
             
             <div class="pt-2">
@@ -218,7 +260,7 @@
                   <i data-lucide="flame" class="w-4 h-4 text-accentRed"></i>
                   <span class="uppercase">Riesgo</span>
                 </div>
-                <span class="font-bold text-accentRed uppercase tracking-widest">Alto Nivel</span>
+                <span class="font-bold text-accentRed uppercase tracking-widest glow-red">Alto Nivel</span>
               </div>
               <div class="flex gap-2">
                 <div class="h-2 flex-1 rounded-sm bg-accentRed shadow-[0_0_5px_#FF2A2A]"></div>
@@ -230,7 +272,7 @@
             </div>
           </div>
 
-          <a href="https://wa.me/1234567890" target="_blank" class="btn-red w-full flex items-center justify-center gap-2 py-4 rounded-sm text-lg" id="reservar">
+          <a href="https://wa.me/1234567890" target="_blank" class="btn-red w-full flex items-center justify-center gap-2 py-4 rounded-sm text-lg">
             <i data-lucide="message-circle" class="w-5 h-5"></i>
             RESERVAR POR WHATSAPP
           </a>
@@ -241,8 +283,33 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
+  <footer class="bg-bgDark py-12 border-t border-[#1a1a2e]">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-3xl font-heading tracking-wider flex items-center gap-2">
+        <i data-lucide="scan-line" class="w-6 h-6 text-accentCyan"></i>
+        57<span class="text-accentCyan">ROOMS</span>
+      </div>
+      <div class="text-textMuted font-mono text-[10px] sm:text-xs uppercase tracking-widest text-center">
+        &copy; 2026 57ROOMS ESCAPE ROOM. BUCARAMANGA, COLOMBIA.
+      </div>
+    </div>
+  </footer>
+
   <script>
     lucide.createIcons();
+
+    // Efecto nav al scrollear
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-blur');
+        navbar.classList.remove('border-transparent');
+      } else {
+        navbar.classList.remove('nav-blur');
+        navbar.classList.add('border-transparent');
+      }
+    });
   </script>
 </body>
 </html>
