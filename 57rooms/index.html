@@ -197,9 +197,20 @@
       <div class="hidden md:flex items-center gap-8 font-bold text-sm tracking-wide">
         <a href="#salas" class="nav-link hover:text-brandOrange transition-colors uppercase">Nuestras Salas</a>
         <a href="#experiencia" class="nav-link hover:text-brandOrange transition-colors uppercase">¿Qué es?</a>
-        <a href="#faq" class="nav-link hover:text-brandOrange transition-colors uppercase">Preguntas</a>
         <a href="#salas" class="btn-massive px-8 py-3 rounded-md text-sm">Reservar Ahora</a>
       </div>
+      
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden text-brandOrange">
+        <i data-lucide="menu" class="w-8 h-8"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-brandDark text-white shadow-xl flex flex-col items-center py-6 gap-6 font-bold uppercase tracking-wide border-t border-gray-800">
+      <a href="#salas" class="hover:text-brandOrange transition-colors">Nuestras Salas</a>
+      <a href="#experiencia" class="hover:text-brandOrange transition-colors">¿Qué es?</a>
+      <a href="#salas" class="btn-massive px-8 py-3 rounded-md text-sm">Reservar Ahora</a>
     </div>
   </nav>
 
@@ -214,11 +225,11 @@
 
     <div class="relative z-10 max-w-5xl mx-auto px-6 text-center text-white mt-12">
       <h2 class="text-brandOrange font-bold tracking-widest uppercase mb-4 text-sm md:text-base">VIVE LA DIVERSIÓN CON 57ROOMS</h2>
-      <h1 class="text-7xl md:text-8xl lg:text-[9rem] font-heading leading-[0.85] tracking-wide mb-8 drop-shadow-2xl">
+      <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading leading-[0.85] tracking-wide mb-8 drop-shadow-2xl">
         ESCAPA DE LA <br>
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandOrange to-brandRed">RUTINA</span>
       </h1>
-      <p class="text-xl md:text-2xl font-medium mb-10 max-w-3xl mx-auto leading-relaxed text-gray-200">
+      <p class="text-lg sm:text-xl md:text-2xl font-medium mb-10 max-w-3xl mx-auto leading-relaxed text-gray-200">
         Encontrar pistas, descifrar códigos y abrir puertas ocultas para salir de la sala antes de que el tiempo se agote. La experiencia más inmersiva de Colombia.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -391,6 +402,19 @@
     // Efecto nav al scrollear
     const navbar = document.getElementById('navbar');
     const topBanner = document.querySelector('.bg-brandRed');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Cerrar menú al hacer click en un link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
     
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
