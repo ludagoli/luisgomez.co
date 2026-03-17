@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Set | Cinematic Escape Rooms Bogotá</title>
+
+  <!-- Google Fonts: Bebas Neue (Impact) & Inter (Readability) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studioBlack: '#050505',
+            studioDark: '#111111',
+            actionRed: '#E50914', /* Netflix Red */
+            actionRedHover: '#F40612',
+            textMain: '#FFFFFF',
+            textMuted: '#999999',
+          },
+          fontFamily: {
+            impact: ['Bebas Neue', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #050505; color: #FFFFFF; }
+    
+    /* Film Grain */
+    .grain::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* Red Glow */
+    .red-glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(229, 9, 20, 0.15) 0%, rgba(5, 5, 5, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Primary CTA Button */
+    .btn-red {
+      background-color: #E50914;
+      color: white;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn-red:hover {
+      background-color: #F40612;
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+    }
+
+    /* Movie Poster Card */
+    .poster-card {
+      position: relative;
+      background: #111;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 2/3;
+      cursor: pointer;
+    }
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .poster-card:hover .poster-img {
+      transform: scale(1.05);
+    }
+    .poster-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.4) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      transition: background 0.3s ease;
+    }
+    .poster-card:hover .poster-overlay {
+      background: rgba(5,5,5,0.75);
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Poster Info (Hide on Hover) */
+    .poster-info {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .poster-card:hover .poster-info {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* Hover CTA (Show on Hover) */
+    .hover-cta {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .poster-card:hover .hover-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="font-body antialiased grain selection:bg-actionRed selection:text-white">
+
+  <!-- NAVBAR -->
+  <nav class="fixed w-full z-50 transition-all duration-300 py-4 px-6 md:px-12 bg-gradient-to-b from-studioBlack/90 to-transparent">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      
+      <!-- LOGO -->
+      <a href="index.html" class="flex items-center gap-2 group">
+        <i data-lucide="clapperboard" class="w-8 h-8 text-actionRed group-hover:scale-110 transition-transform"></i>
+        <span class="font-impact text-3xl tracking-widest uppercase mt-1">THE SET</span>
+      </a>
+      
+      <div class="hidden md:flex items-center gap-8 font-bold text-sm tracking-wide uppercase">
+        <a href="#estudios" class="hover:text-actionRed transition-colors">Nuestros Estudios</a>
+        <a href="#cartelera" class="hover:text-actionRed transition-colors">Cartelera</a>
+        <a href="#cartelera" class="btn-red px-6 py-2 rounded-sm text-xs">Comprar Entradas</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO BILLBOARD -->
+  <section class="relative min-h-[85vh] flex flex-col justify-end pb-24 pt-32">
+    <!-- Background -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1595769816263-9b910be24d5f?auto=format&fit=crop&q=80&w=1920" alt="The Set Studio" class="w-full h-full object-cover opacity-40">
+      <div class="absolute inset-0 bg-gradient-to-t from-studioBlack via-studioBlack/60 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-studioBlack via-studioBlack/40 to-transparent"></div>
+    </div>
+    
+    <div class="red-glow bottom-0 left-0"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-actionRed text-white font-black px-3 py-1 text-xs uppercase tracking-widest rounded-sm">Bogotá</span>
+          <span class="text-gray-400 font-bold text-xs uppercase tracking-widest">Experiencia Inmersiva</span>
+        </div>
+        
+        <h1 class="font-impact text-6xl md:text-8xl lg:text-9xl leading-[0.85] tracking-wide mb-6 drop-shadow-xl">
+          TÚ ERES EL <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">PROTAGONISTA</span>
+        </h1>
+        
+        <p class="font-body text-lg md:text-xl text-gray-300 font-medium mb-10 max-w-xl">
+          Bienvenido al estudio. Construimos escenarios cinematográficos donde tú y tu equipo tienen 60 minutos para cambiar el final de la historia.
+        </p>
+        
+        <div class="flex gap-4">
+          <a href="#cartelera" class="btn-red px-8 py-4 rounded-sm text-lg">
+            <i data-lucide="ticket" class="w-5 h-5"></i> Ver Cartelera
+          </a>
+          <a href="#trailer" class="border-2 border-white/30 hover:border-white px-8 py-4 rounded-sm text-lg font-bold uppercase tracking-wide transition-colors flex items-center gap-2">
+            <i data-lucide="play" class="w-5 h-5"></i> El Trailer
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTELERA DE ESTRENOS (Posters Grid) -->
+  <section id="cartelera" class="py-20 bg-studioBlack relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="flex items-end justify-between mb-12 border-b border-gray-800 pb-4">
+        <h2 class="font-impact text-4xl md:text-5xl tracking-wide">CARTELERA ACTUAL</h2>
+        <div class="flex items-center gap-2 text-sm font-bold text-actionRed uppercase tracking-wider hidden sm:flex">
+          <i data-lucide="popcorn" class="w-5 h-5"></i> Temporada 1
+        </div>
+      </div>
+
+      <!-- THE POSTERS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- PRODUCCIÓN 1: PROYECTO KANE -->
+        <div class="poster-card group">
+          <div class="absolute top-3 left-3 z-20 bg-actionRed text-white text-[10px] font-black px-2 py-1 uppercase tracking-widest rounded-sm">Estreno</div>
+          
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" alt="Proyecto Kane" class="poster-img">
+          
+          <div class="poster-overlay">
+            <!-- Info (Default) -->
+            <div class="poster-info w-full">
+              <h3 class="font-impact text-4xl tracking-wide leading-none mb-1">PROYECTO KANE</h3>
+              <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-3">Sci-Fi / Thriller</p>
+              
+              <div class="flex items-center gap-4 text-xs font-bold text-white/80">
+                <div class="flex items-center gap-1"><i data-lucide="users" class="w-3 h-3 text-actionRed"></i> 2-5</div>
+                <div class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3 text-actionRed"></i> 60m</div>
+                <div class="flex gap-0.5">
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- CTA (On Hover) -->
+            <div class="hover-cta text-center w-full">
+              <a href="proyecto-kane.html" class="btn-red w-full py-3 text-sm rounded-sm mb-2">Comprar Tickets</a>
+              <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Ver Detalles</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCCIÓN 2: EL ATRACO -->
+        <div class="poster-card group">
+          <div class="absolute top-3 left-3 z-20 bg-white text-black text-[10px] font-black px-2 py-1 uppercase tracking-widest rounded-sm">Top Ventas</div>
+          
+          <img src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&fit=crop&q=80&w=600" alt="El Atraco" class="poster-img">
+          
+          <div class="poster-overlay">
+            <div class="poster-info w-full">
+              <h3 class="font-impact text-4xl tracking-wide leading-none mb-1">LA BÓVEDA</h3>
+              <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-3">Acción / Heist</p>
+              <div class="flex items-center gap-4 text-xs font-bold text-white/80">
+                <div class="flex items-center gap-1"><i data-lucide="users" class="w-3 h-3 text-actionRed"></i> 2-6</div>
+                <div class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3 text-actionRed"></i> 60m</div>
+                <div class="flex gap-0.5">
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
+                </div>
+              </div>
+            </div>
+            <div class="hover-cta text-center w-full">
+              <a href="#" class="btn-red w-full py-3 text-sm rounded-sm mb-2">Comprar Tickets</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCCIÓN 3: EL CULTO -->
+        <div class="poster-card group">
+          <div class="absolute top-3 right-3 z-20 bg-black/80 backdrop-blur text-white border border-white/20 text-[10px] font-black px-2 py-1 uppercase tracking-widest rounded-sm">+18 Años</div>
+          
+          <img src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&fit=crop&q=80&w=600" alt="El Culto" class="poster-img">
+          
+          <div class="poster-overlay">
+            <div class="poster-info w-full">
+              <h3 class="font-impact text-4xl tracking-wide leading-none mb-1">EL CULTO</h3>
+              <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-3">Terror Sobrenatural</p>
+              <div class="flex items-center gap-4 text-xs font-bold text-white/80">
+                <div class="flex items-center gap-1"><i data-lucide="users" class="w-3 h-3 text-actionRed"></i> 3-6</div>
+                <div class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3 text-actionRed"></i> 75m</div>
+                <div class="flex gap-0.5">
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-actionRed"></div>
+                </div>
+              </div>
+            </div>
+            <div class="hover-cta text-center w-full">
+              <a href="#" class="btn-red w-full py-3 text-sm rounded-sm mb-2">Comprar Tickets</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMING SOON -->
+        <div class="poster-card flex items-center justify-center border border-gray-800 bg-studioDark">
+          <div class="text-center p-6">
+            <i data-lucide="lock" class="w-12 h-12 text-gray-700 mx-auto mb-4"></i>
+            <h3 class="font-impact text-3xl text-gray-500 tracking-widest mb-2">PROXIMAMENTE</h3>
+            <p class="text-xs text-gray-600 font-bold uppercase tracking-widest">En producción</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO MANIFESTO -->
+  <section id="estudios" class="py-24 border-y border-white/10 bg-[#0a0a0a]">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+      <div>
+        <i data-lucide="film" class="w-10 h-10 text-actionRed mb-6 mx-auto md:mx-0"></i>
+        <h3 class="font-impact text-3xl tracking-wide mb-3">SETS REALES</h3>
+        <p class="text-gray-400 text-sm leading-relaxed font-medium">Construimos nuestras salas con escenógrafos reales. Nada de cartón pintado. Toca, investiga y siente la historia.</p>
+      </div>
+      <div>
+        <i data-lucide="cpu" class="w-10 h-10 text-actionRed mb-6 mx-auto md:mx-0"></i>
+        <h3 class="font-impact text-3xl tracking-wide mb-3">GEN 3 TECH</h3>
+        <p class="text-gray-400 text-sm leading-relaxed font-medium">Cero candados numéricos. Todos nuestros puzzles están integrados en la narrativa mediante sensores y electrónica oculta.</p>
+      </div>
+      <div>
+        <i data-lucide="clapperboard" class="w-10 h-10 text-actionRed mb-6 mx-auto md:mx-0"></i>
+        <h3 class="font-impact text-3xl tracking-wide mb-3">SESIONES PRIVADAS</h3>
+        <p class="text-gray-400 text-sm leading-relaxed font-medium">Tu grupo compra el pase completo de la función. Nunca jugarás con extraños. La película es solo tuya.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-studioBlack py-12">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 border-b border-gray-900 pb-12 mb-8">
+      <div class="font-impact text-4xl tracking-widest">THE SET</div>
+      <div class="flex gap-6">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 text-center text-xs font-bold text-gray-600 uppercase tracking-widest">
+      &copy; 2026 THE SET ESCAPE ROOMS BOGOTÁ.
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
